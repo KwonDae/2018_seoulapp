@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 
@@ -24,12 +29,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //define view objects
     EditText editTextEmail;
     EditText editTextPassword;
+    EditText editTextName;
     Button buttonSignup;
     TextView textviewSingin;
     TextView textviewMessage;
     ProgressDialog progressDialog;
     //define firebase object
     FirebaseAuth firebaseAuth;
+    CheckBox checkBox;
+    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference mReference = mDatabase.getReference();
+    private ChildEventListener mChild;
 
 
     @Override
@@ -38,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
 
         if(firebaseAuth.getCurrentUser() != null) {
             finish();
@@ -51,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textviewMessage = (TextView) findViewById(R.id.textviewMessage);
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
         progressDialog = new ProgressDialog(this);
+        checkBox = findViewById(R.id.checkBox);
+        editTextName = findViewById(R.id.editTextName);
 
         //button click event
         buttonSignup.setOnClickListener(this);
@@ -61,6 +74,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //사용자가 입력하는 email, password를 가져온다.
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String tokenID = FirebaseInstanceId.getInstance().getToken();
+
+//        mReference.child("message").push().setValue("2");
+        mReference = mDatabase.getReference("UserProfile");
+        Boolean ms1 = checkBox.isChecked();
+
+        if(!TextUtils.isEmpty(tokenID)) {
+            sendData SendData = new sendData();
+            SendData.firebaseKey = tokenID;
+            SendData.UserName = editTextName.getText().toString().trim();
+            SendData.GalleryOwner = ms1.toString();
+
+            mReference.child(tokenID).setValue(SendData);
+        }
+
+
         //email과 password가 비었는지 아닌지를 체크 한다.
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
