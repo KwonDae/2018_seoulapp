@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener
+public class MainActivity extends BaseActivity implements View.OnClickListener
 
         {
 
@@ -49,18 +48,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-
         if(firebaseAuth.getCurrentUser() != null) {
+            //이미 로그인되어있으면 이페이지를 종료
             finish();
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-
+            //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), Topgallery.class));
         }
         //initializing views
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textviewSingin= (TextView) findViewById(R.id.textViewSignin);
-        textviewMessage = (TextView) findViewById(R.id.textviewMessage);
-        buttonSignup = (Button) findViewById(R.id.buttonSignup);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        textviewSingin= findViewById(R.id.textViewSignin);
+        textviewMessage = findViewById(R.id.textviewMessage);
+        buttonSignup = findViewById(R.id.buttonSignup);
         progressDialog = new ProgressDialog(this);
         checkBox = findViewById(R.id.checkBox);
         editTextName = findViewById(R.id.editTextName);
@@ -68,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //button click event
         buttonSignup.setOnClickListener(this);
         textviewSingin.setOnClickListener(this);
+
     }
     //Firebse creating a new user
     private void registerUser(){

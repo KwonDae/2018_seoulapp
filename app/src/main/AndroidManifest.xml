@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.daewon.a2018_seoulapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +20,8 @@
         </activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".FindActivity"></activity>
+        <activity android:name=".FindActivity" />
+        <activity android:name=".Topgallery"></activity>
     </application>
 
 </manifest>
