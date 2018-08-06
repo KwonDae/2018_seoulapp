@@ -5,7 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 public class TestPagerAdapter extends FragmentPagerAdapter {
-    private static final int PAGE_NUMBER = 2;
+    private static final int PAGE_NUMBER = 3;
+
     public TestPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -17,6 +18,8 @@ public class TestPagerAdapter extends FragmentPagerAdapter {
                 return PageOneFragment.newInstance();
             case 1:
                 return PageTwoFragment.newInstance();
+            case 2:
+                return PageThreeFragment.newInstance();
             default:
                 return null;
         }
@@ -32,9 +35,11 @@ public class TestPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "지도로 보기";
+                return "Top 5";
             case 1:
-                return "테마로 보기";
+                return "지도로 보기";
+            case 2:
+                return "나의 갤러리";
             default:
                 return null;
         }

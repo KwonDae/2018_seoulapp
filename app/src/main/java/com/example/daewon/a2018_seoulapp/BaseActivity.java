@@ -52,10 +52,12 @@ public class BaseActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Toast.makeText(this, "홈아이콘 클릭", Toast.LENGTH_SHORT).show();
+            onBackPressed();
+            Toast.makeText(this, "뒤로가기 클릭", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_search) {
+            finish();
             Toast.makeText(this, "검색 클릭", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), Topgallery.class));
             return true;
@@ -73,4 +75,6 @@ public class BaseActivity extends AppCompatActivity{
         if (actionBar != null)
             actionBar.hide();
     }
+
+
 }
