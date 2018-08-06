@@ -23,7 +23,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener
 
-        {
+{
 
     //define view objects
     EditText editTextEmail;
@@ -40,24 +40,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     private DatabaseReference mReference = mDatabase.getReference();
     private ChildEventListener mChild;
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if(firebaseAuth.getCurrentUser() != null) {
+        if (firebaseAuth.getCurrentUser() != null) {
             //이미 로그인되어있으면 이페이지를 종료
             finish();
-            //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-            startActivity(new Intent(getApplicationContext(), Topgallery.class));
+            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            //startActivity(new Intent(getApplicationContext(), Topgallery.class));
         }
         //initializing views
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
-        textviewSingin= findViewById(R.id.textViewSignin);
+        textviewSingin = findViewById(R.id.textViewSignin);
         textviewMessage = findViewById(R.id.textviewMessage);
         buttonSignup = findViewById(R.id.buttonSignup);
         progressDialog = new ProgressDialog(this);
@@ -69,8 +67,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         textviewSingin.setOnClickListener(this);
 
     }
+
+
     //Firebse creating a new user
-    private void registerUser(){
+    private void registerUser() {
         //사용자가 입력하는 email, password를 가져온다.
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -80,7 +80,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         mReference = mDatabase.getReference("UserProfile");
         Boolean ms1 = checkBox.isChecked();
 
-        if(!TextUtils.isEmpty(tokenID)) {
+        if (!TextUtils.isEmpty(tokenID)) {
             sendData SendData = new sendData();
             SendData.firebaseKey = tokenID;
             SendData.UserName = editTextName.getText().toString().trim();
@@ -91,11 +91,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
 
         //email과 password가 비었는지 아닌지를 체크 한다.
-        if(TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(password)){
+        if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
         }
 
@@ -108,7 +108,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
@@ -122,15 +122,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                 });
 
     }
+
     //button click event
     @Override
     public void onClick(View view) {
-        if(view == buttonSignup) {
+        if (view == buttonSignup) {
             //TODO
             registerUser();
         }
 
-        if(view == textviewSingin) {
+        if (view == textviewSingin) {
             //TODO
             startActivity(new Intent(this, LoginActivity.class)); //추가해 줄 로그인 액티비티
         }

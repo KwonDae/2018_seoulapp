@@ -32,9 +32,9 @@ public class TestPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "첫번째 탭";
+                return "지도로 보기";
             case 1:
-                return "두번째 탭";
+                return "테마로 보기";
             default:
                 return null;
         }
