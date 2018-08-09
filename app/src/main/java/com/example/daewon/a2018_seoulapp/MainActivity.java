@@ -28,6 +28,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     //define view objects
     EditText editTextEmail;
     EditText editTextPassword;
+    EditText editTextPassword_confirm;
     EditText editTextName;
     Button buttonSignup;
     TextView textviewSingin;
@@ -55,6 +56,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         //initializing views
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
+        editTextPassword_confirm = findViewById(R.id.editTextPassword_confirm);
         textviewSingin = findViewById(R.id.textViewSignin);
         textviewMessage = findViewById(R.id.textviewMessage);
         buttonSignup = findViewById(R.id.buttonSignup);
@@ -74,6 +76,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         //사용자가 입력하는 email, password를 가져온다.
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String password_confirm = editTextPassword_confirm.getText().toString().trim();
         String tokenID = FirebaseInstanceId.getInstance().getToken();
         String name = editTextName.getText().toString().trim();
 
@@ -86,6 +89,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         }
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!(password.equals(password_confirm))){
+            Toast.makeText(this,"Password가 일치 하지 않습니다.", Toast.LENGTH_SHORT).show();
             return;
         }
 

@@ -41,6 +41,15 @@
         android:inputType="textPassword" />
 
     <EditText
+        android:id="@+id/editTextPassword_confirm"
+        android:layout_width="250dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Enter password"
+        android:inputType="textPassword" />
+
+    <EditText
         android:id="@+id/editTextName"
         android:layout_width="250dp"
         android:layout_gravity="center_horizontal"
