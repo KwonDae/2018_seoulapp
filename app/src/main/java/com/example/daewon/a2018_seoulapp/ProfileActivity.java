@@ -60,6 +60,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         hand.postDelayed(new Runnable() {
             @Override
             public void run() {
+                //HI
                 Intent intent = new Intent(ProfileActivity.this, Topgallery.class);
                 startActivity(intent);
                 finish();
