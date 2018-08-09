@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class FindActivity extends BaseActivity implements View.OnClickListener{
+public class FindActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "FindActivity";
 
     //define view objects
@@ -24,7 +24,6 @@ public class FindActivity extends BaseActivity implements View.OnClickListener{
     private ProgressDialog progressDialog;
     //define firebase object
     private FirebaseAuth firebaseAuth;
-
 
 
     @Override
@@ -43,7 +42,7 @@ public class FindActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        if(view == buttonFind){
+        if (view == buttonFind) {
             progressDialog.setMessage("처리중입니다. 잠시 기다려 주세요...");
             progressDialog.show();
             //비밀번호 재설정 이메일 보내기
@@ -52,7 +51,7 @@ public class FindActivity extends BaseActivity implements View.OnClickListener{
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Toast.makeText(FindActivity.this, "이메일을 보냈습니다.", Toast.LENGTH_LONG).show();
                                 finish();
                                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));

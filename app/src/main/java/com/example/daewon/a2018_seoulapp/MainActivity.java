@@ -75,20 +75,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String tokenID = FirebaseInstanceId.getInstance().getToken();
+        String name = editTextName.getText().toString().trim();
 
 //        mReference.child("message").push().setValue("2");
-        mReference = mDatabase.getReference("UserProfile");
-        Boolean ms1 = checkBox.isChecked();
-
-        if (!TextUtils.isEmpty(tokenID)) {
-            sendData SendData = new sendData();
-            SendData.firebaseKey = tokenID;
-            SendData.UserName = editTextName.getText().toString().trim();
-            SendData.GalleryOwner = ms1.toString();
-
-            mReference.child(tokenID).setValue(SendData);
-        }
-
 
         //email과 password가 비었는지 아닌지를 체크 한다.
         if (TextUtils.isEmpty(email)) {
@@ -97,6 +86,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         }
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(TextUtils.isEmpty(name)) {
+            Toast.makeText(this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         //email과 password가 제대로 입력되어 있다면 계속 진행된다.
@@ -111,15 +106,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                         if (task.isSuccessful()) {
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            //startActivity(new Intent(getApplicationContext(), Topgallery.class));
                         } else {
                             //에러발생시
 
                             textviewMessage.setText("에러유형\n - 이미 등록된 이메일  \n -암호 최소 6자리 이상 \n - 서버에러");
                             Toast.makeText(MainActivity.this, "등록 에러!", Toast.LENGTH_SHORT).show();
+                            return;
                         }
                         progressDialog.dismiss();
                     }
                 });
+
+        mReference = mDatabase.getReference("UserProfile");
+        Boolean ms1 = checkBox.isChecked();
+
+        if (!TextUtils.isEmpty(tokenID)) {
+            sendData SendData = new sendData();
+            SendData.firebaseKey = tokenID;
+            SendData.UserName = editTextName.getText().toString().trim();
+            SendData.GalleryOwner = ms1.toString();
+
+            mReference.child(tokenID).setValue(SendData);
+        }
 
     }
 

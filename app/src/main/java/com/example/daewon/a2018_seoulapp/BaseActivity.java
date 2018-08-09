@@ -11,19 +11,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-public class BaseActivity extends AppCompatActivity{
+import com.google.firebase.auth.FirebaseAuth;
 
+public class BaseActivity extends AppCompatActivity {
+
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
         View view = getWindow().getDecorView();
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if( view != null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (view != null) {
                 //23 버젼 이상일 때 상태바 하얀 색상에 회색 아이콘 색상을 설정
                 view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                 getWindow().setStatusBarColor(Color.parseColor("#f2f2f2"));
             }
-        } else if( Build.VERSION.SDK_INT >= 21) {
+        } else if (Build.VERSION.SDK_INT >= 21) {
             //21 버젼 이상일 때
             getWindow().setStatusBarColor(Color.BLACK);
         }
@@ -65,6 +71,12 @@ public class BaseActivity extends AppCompatActivity{
 
         if (id == R.id.action_button2) {
             Toast.makeText(this, "액션버튼 클릭", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if( id == R.id.action_logout) {
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

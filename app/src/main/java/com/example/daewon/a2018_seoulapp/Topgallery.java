@@ -30,10 +30,9 @@ public class Topgallery extends BaseActivity {
         long tempTime = System.currentTimeMillis();
         long intervalTime = tempTime - backPressedTime;
 
-        if( 0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
             super.onBackPressed();
-        }
-        else {
+        } else {
             backPressedTime = tempTime;
             Toast.makeText(getApplicationContext(), "한번 더 뒤로가기 누르시면 종료합니다.", Toast.LENGTH_SHORT).show();
         }

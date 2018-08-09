@@ -26,4 +26,8 @@
         android:id="@+id/action_about"
         android:title="문의하기"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_logout"
+        android:title="로그아웃"
+        app:showAsAction="ifRoom"/>
 </menu>

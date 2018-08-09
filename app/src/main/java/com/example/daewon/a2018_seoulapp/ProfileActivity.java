@@ -3,6 +3,7 @@ package com.example.daewon.a2018_seoulapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -55,6 +56,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         buttonLogout.setOnClickListener(this);
         textivewDelete.setOnClickListener(this);
 
+        Handler hand = new Handler();
+        hand.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(ProfileActivity.this, Topgallery.class);
+                startActivity(intent);
+                finish();
+            }
+        },2000);
 
     }
 
