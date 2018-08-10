@@ -1,4 +1,4 @@
-package com.example.daewon.a2018_seoulapp;
+package com.example.daewon.a2018_seoulapp.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.daewon.a2018_seoulapp.R;
+import com.example.daewon.a2018_seoulapp.Util.sendData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener
+public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
 {
 
@@ -119,7 +121,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                             //에러발생시
 
                             textviewMessage.setText("에러유형\n - 이미 등록된 이메일  \n -암호 최소 6자리 이상 \n - 서버에러");
-                            Toast.makeText(MainActivity.this, "등록 에러!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "등록 에러!", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         progressDialog.dismiss();
@@ -134,6 +136,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
             SendData.firebaseKey = tokenID;
             SendData.UserName = editTextName.getText().toString().trim();
             SendData.GalleryOwner = ms1.toString();
+            SendData.E_mail = email;
 
             mReference.child(tokenID).setValue(SendData);
         }

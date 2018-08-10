@@ -1,4 +1,4 @@
-package com.example.daewon.a2018_seoulapp;
+package com.example.daewon.a2018_seoulapp.Fragment;
 
 
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.daewon.a2018_seoulapp.R;
 
 
 /**
