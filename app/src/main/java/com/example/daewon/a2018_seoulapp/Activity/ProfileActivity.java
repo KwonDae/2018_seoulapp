@@ -1,4 +1,4 @@
-package com.example.daewon.a2018_seoulapp;
+package com.example.daewon.a2018_seoulapp.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.daewon.a2018_seoulapp.R;
+import com.example.daewon.a2018_seoulapp.Topgallery;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -98,7 +100,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                                         public void onComplete(@NonNull Task<Void> task) {
                                             Toast.makeText(ProfileActivity.this, "계정이 삭제 되었습니다.", Toast.LENGTH_LONG).show();
                                             finish();
-                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                            startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
                                         }
                                     });
                         }

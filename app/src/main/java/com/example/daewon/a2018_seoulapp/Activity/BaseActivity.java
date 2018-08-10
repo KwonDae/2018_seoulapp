@@ -1,4 +1,4 @@
-package com.example.daewon.a2018_seoulapp;
+package com.example.daewon.a2018_seoulapp.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.daewon.a2018_seoulapp.R;
+import com.example.daewon.a2018_seoulapp.Topgallery;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class BaseActivity extends AppCompatActivity {

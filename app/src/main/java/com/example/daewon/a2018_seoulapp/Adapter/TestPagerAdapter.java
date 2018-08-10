@@ -1,8 +1,12 @@
-package com.example.daewon.a2018_seoulapp;
+package com.example.daewon.a2018_seoulapp.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.daewon.a2018_seoulapp.Fragment.PageOneFragment;
+import com.example.daewon.a2018_seoulapp.Fragment.PageThreeFragment;
+import com.example.daewon.a2018_seoulapp.Fragment.PageTwoFragment;
 
 public class TestPagerAdapter extends FragmentPagerAdapter {
     private static final int PAGE_NUMBER = 3;

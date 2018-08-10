@@ -5,6 +5,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
+import com.example.daewon.a2018_seoulapp.Activity.BaseActivity;
+import com.example.daewon.a2018_seoulapp.Adapter.TestPagerAdapter;
+
 public class Topgallery extends BaseActivity {
 
     private final long FINISH_INTERVAL_TIME = 2000;
