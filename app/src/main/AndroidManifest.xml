@@ -14,13 +14,15 @@
         <activity android:name=".Activity.SignUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Activity.ProfileActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.FindActivity" />
-        <activity android:name=".Topgallery"></activity>
+        <activity android:name=".Topgallery" />
+        <activity android:name=".Custom.TOP5_list_item"></activity>
     </application>
 
 </manifest>
