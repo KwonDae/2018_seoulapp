@@ -4,6 +4,5 @@ public class sendData {
     //Nam, JHJ
     public String firebaseKey;
     public String UserName;
-    public String GalleryOwner;
     public String E_mail;
 }

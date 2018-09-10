@@ -22,7 +22,8 @@
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.FindActivity" />
         <activity android:name=".Topgallery" />
-        <activity android:name=".Custom.TOP5_list_item"></activity>
+        <activity android:name=".Custom.CustomListFragment" />
+        <activity android:name=".GalleryList"></activity>
     </application>
 
 </manifest>

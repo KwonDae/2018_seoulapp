@@ -1,12 +1,9 @@
 package com.example.daewon.a2018_seoulapp;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
 import com.example.daewon.a2018_seoulapp.Activity.BaseActivity;
-import com.example.daewon.a2018_seoulapp.Adapter.TestPagerAdapter;
 
 public class Topgallery extends BaseActivity {
 
@@ -18,14 +15,6 @@ public class Topgallery extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topgallery);
 
-        TestPagerAdapter mTestPagerAdapter = new TestPagerAdapter(
-                getSupportFragmentManager()
-        );
-        ViewPager mViewPager = findViewById(R.id.view_pager);
-        mViewPager.setAdapter(mTestPagerAdapter);
-
-        TabLayout mTab = findViewById(R.id.tabs);
-        mTab.setupWithViewPager(mViewPager);
     }
 
     @Override

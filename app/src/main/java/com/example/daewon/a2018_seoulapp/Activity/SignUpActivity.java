@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,14 +37,14 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     ProgressDialog progressDialog;
     //define firebase object
     FirebaseAuth firebaseAuth;
-    CheckBox checkBox;
+
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mReference = mDatabase.getReference();
     private ChildEventListener mChild;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signup);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -63,7 +62,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         textviewMessage = findViewById(R.id.textviewMessage);
         buttonSignup = findViewById(R.id.buttonSignup);
         progressDialog = new ProgressDialog(this);
-        checkBox = findViewById(R.id.checkBox);
+
         editTextName = findViewById(R.id.editTextName);
 
         //button click event
@@ -129,16 +128,17 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 });
 
         mReference = mDatabase.getReference("UserProfile");
-        Boolean ms1 = checkBox.isChecked();
 
-        if (!TextUtils.isEmpty(tokenID)) {
-            sendData SendData = new sendData();
-            SendData.firebaseKey = tokenID;
-            SendData.UserName = editTextName.getText().toString().trim();
-            SendData.GalleryOwner = ms1.toString();
-            SendData.E_mail = email;
-
-            mReference.child(tokenID).setValue(SendData);
+        int index = email.indexOf("@");
+        String save_email = email.substring(0,index);
+        //        mReference.child("message").push().setValue("2");
+        mReference = mDatabase.getReference("UserProfile");
+        if(!TextUtils.isEmpty(tokenID)) {
+            sendData profileData = new sendData();
+            profileData.firebaseKey = tokenID;
+            profileData.UserName = editTextName.getText().toString().trim();
+            profileData.E_mail = email;
+            mReference.child(save_email).setValue(profileData);
         }
 
     }

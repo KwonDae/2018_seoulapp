@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.daewon.a2018_seoulapp.GalleryList;
 import com.example.daewon.a2018_seoulapp.R;
-import com.example.daewon.a2018_seoulapp.Topgallery;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,11 +67,11 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void run() {
                 //How are you
-                Intent intent = new Intent(ProfileActivity.this, Topgallery.class);
+                Intent intent = new Intent(ProfileActivity.this, GalleryList.class);
                 startActivity(intent);
                 finish();
             }
-        }, 4000);
+        }, 1000);
 
     }
 
