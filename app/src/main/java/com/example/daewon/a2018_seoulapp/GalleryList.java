@@ -1,5 +1,7 @@
 package com.example.daewon.a2018_seoulapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,7 +47,6 @@ public class GalleryList extends BaseActivity {
                 imageDTOs.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ImageDTO imageDTO = snapshot.getValue(ImageDTO.class);
-                    temp1 = snapshot.child("Gallery_imgs").child("01").getValue().toString();
                     imageDTOs.add(imageDTO);
                 }
                 galleryListAdapter.notifyDataSetChanged();
@@ -67,11 +68,18 @@ public class GalleryList extends BaseActivity {
             return new CustomViewHolder(view);
         }
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
             ((CustomViewHolder)holder).textView.setText(imageDTOs.get(position).Gallery_name);
             ((CustomViewHolder)holder).textView2.setText(imageDTOs.get(position).Gallery_location_from_list);
-            Glide.with(holder.itemView.getContext()).load(temp1).into(((CustomViewHolder)holder).imageView);
-
+            Glide.with(holder.itemView.getContext()).load(imageDTOs.get(position).Main_img).into(((CustomViewHolder)holder).imageView);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String url = imageDTOs.get(position).Main_img;
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
