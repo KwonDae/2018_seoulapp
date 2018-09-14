@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#8843FF"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="48dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleview"
@@ -329,8 +329,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_weight="1"
-            android:layout_marginTop="-10dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="60dp"
             android:paddingTop="20dp"
             android:text="지역선택"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
@@ -339,7 +339,8 @@
             android:id="@+id/Button_todetail"
             android:layout_width="100dp"
             android:layout_height="60dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
             android:layout_weight="1"
             android:text="지역 갤러리 보기" />
     </LinearLayout>
