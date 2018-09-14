@@ -47,6 +47,12 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/mypage_off" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#8843FF"
+        android:layout_marginTop="48dp"/>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleview"
