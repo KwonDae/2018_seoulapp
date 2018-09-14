@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,13 +19,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
-    //define view objects
     EditText editTextEmail;
     EditText editTextPassword;
-    Button buttonSignin;
-    TextView textviewSingin;
+    ImageButton buttonSignin;
+    ImageButton textviewSingin;
     TextView textviewMessage;
-    TextView textviewFindPassword;
+    ImageButton textviewFindPassword;
     ProgressDialog progressDialog;
     //define firebase object
     FirebaseAuth firebaseAuth;
@@ -48,10 +47,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textviewSingin = (TextView) findViewById(R.id.textViewSignin);
+        textviewSingin = (ImageButton) findViewById(R.id.textViewSignin);
         textviewMessage = (TextView) findViewById(R.id.textviewMessage);
-        textviewFindPassword = (TextView) findViewById(R.id.textViewFindpassword);
-        buttonSignin = (Button) findViewById(R.id.buttonSignup);
+        textviewFindPassword = (ImageButton) findViewById(R.id.textViewFindpassword);
+        buttonSignin = (ImageButton) findViewById(R.id.buttonSignup);
         progressDialog = new ProgressDialog(this);
 
         //button click event
