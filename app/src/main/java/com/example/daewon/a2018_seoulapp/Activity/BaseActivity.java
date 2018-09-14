@@ -1,14 +1,10 @@
 package com.example.daewon.a2018_seoulapp.Activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.daewon.a2018_seoulapp.R;
@@ -17,26 +13,28 @@ import com.google.firebase.auth.FirebaseAuth;
 public class BaseActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
-        View view = getWindow().getDecorView();
+        /*View view = getWindow().getDecorView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (view != null) {
                 //23 버젼 이상일 때 상태바 하얀 색상에 회색 아이콘 색상을 설정
                 view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                getWindow().setStatusBarColor(Color.parseColor("#f2f2f2"));
+                getWindow().setStatusBarColor(Color.parseColor("#321B53"));
+
 
             }
         } else if (Build.VERSION.SDK_INT >= 21) {
             //21 버젼 이상일 때
             getWindow().setStatusBarColor(Color.BLACK);
-        }
+        }*/
 
-        //액션바 설정하기//
+
+/*        //액션바 설정하기//
         //액션바 타이틀 변경하기
         getSupportActionBar().setTitle("갤러리숲");
         //액션바 배경색 변경
@@ -44,7 +42,7 @@ public class BaseActivity extends AppCompatActivity {
         //홈버튼 표시
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //액션바 숨기기
-        //hideActionBar();
+        //hideActionBar();*/
 
     }
 
@@ -69,7 +67,7 @@ public class BaseActivity extends AppCompatActivity {
             return true;
         }
 
-        if( id == R.id.action_logout) {
+        if (id == R.id.action_logout) {
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));

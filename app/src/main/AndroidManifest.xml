@@ -22,9 +22,14 @@
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.FindActivity" />
         <activity android:name=".Topgallery" />
+<<<<<<< HEAD
         <activity android:name=".GalleryList"></activity>
 
         <activity android:name=".Activity.Map_sub_Activity"></activity>
+=======
+        <activity android:name=".GalleryList" />
+        <activity android:name=".Activity.MyGallery"></activity>
+>>>>>>> ca290bab88abe52622b0cc229f9a59777f50e2d7
     </application>
 
 </manifest>
