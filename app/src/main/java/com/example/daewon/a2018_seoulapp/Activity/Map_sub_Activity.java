@@ -40,7 +40,7 @@ public class Map_sub_Activity extends BaseActivity {
     private int count=0;
 
     private ImageButton best5, find_gallery, mypage;
-    int i = 1;
+    int i = 4;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +94,7 @@ public class Map_sub_Activity extends BaseActivity {
                     find_gallery.setImageResource(R.drawable.gallery_off);
                     mypage.setImageResource(R.drawable.mypage_off);
                     Intent intent = new Intent(Map_sub_Activity.this, GalleryList.class);
+                    finish();
                     startActivity(intent);
                     i =1;
                 }
@@ -109,6 +110,7 @@ public class Map_sub_Activity extends BaseActivity {
                     mypage.setImageResource(R.drawable.mypage_off);
                     i = 2;
                     Intent intent = new Intent(Map_sub_Activity.this, MapActivity.class);
+                    finish();
                     startActivity(intent);
                 }
             }
@@ -122,6 +124,9 @@ public class Map_sub_Activity extends BaseActivity {
                     find_gallery.setImageResource(R.drawable.gallery_off);
                     mypage.setImageResource(R.drawable.mypage_on);
                     i = 3;
+                    Intent intent = new Intent(Map_sub_Activity.this, MyPage.class);
+                    finish();
+                    startActivity(intent);
                 }
             }
         });

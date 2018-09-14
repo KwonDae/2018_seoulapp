@@ -1,15 +1,14 @@
 package com.example.daewon.a2018_seoulapp.Activity;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.daewon.a2018_seoulapp.GalleryList;
 import com.example.daewon.a2018_seoulapp.R;
 
 public class MapActivity extends BaseActivity {
@@ -19,17 +18,64 @@ public class MapActivity extends BaseActivity {
     TextView location_text;
     Intent To_detail_list_intent;
     Button To_detail_button;
+    private ImageButton best5, find_gallery, mypage;
+    int i = 2;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         location_text = (TextView)findViewById(R.id.location_text);
         To_detail_button = (Button)findViewById(R.id.Button_todetail);
+        best5 = findViewById(R.id.best5);
+        find_gallery = findViewById(R.id.find_gallery);
+        mypage = findViewById(R.id.mypage);
 
         To_detail_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(To_detail_list_intent);
+            }
+        });
+
+        best5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(i != 1) {
+                    best5.setImageResource(R.drawable.best5_on);
+                    find_gallery.setImageResource(R.drawable.gallery_off);
+                    mypage.setImageResource(R.drawable.mypage_off);
+                    i = 1;
+                    Intent intent = new Intent(MapActivity.this, GalleryList.class);
+                    finish();
+                    startActivity(intent);
+                }
+            }
+        });
+
+        find_gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(i != 2) {
+                    best5.setImageResource(R.drawable.best5_off);
+                    find_gallery.setImageResource(R.drawable.gallery_on);
+                    mypage.setImageResource(R.drawable.mypage_off);
+                    i = 2;
+                }
+            }
+        });
+
+        mypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(i != 3) {
+                    best5.setImageResource(R.drawable.best5_off);
+                    find_gallery.setImageResource(R.drawable.gallery_off);
+                    mypage.setImageResource(R.drawable.mypage_on);
+                    i = 3;
+                    Intent intent = new Intent(MapActivity.this, MyPage.class);
+                    finish();
+                    startActivity(intent);
+                }
             }
         });
     }
