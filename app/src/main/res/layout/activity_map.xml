@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageButton
+        android:id="@+id/dobong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="215dp"
+        android:layout_marginTop="100dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/dobong" />
+
+    <ImageButton
+        android:id="@+id/nowon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="110dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/nowon"/>
+
+    <ImageButton
+        android:id="@+id/gangbook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="195dp"
+        android:layout_marginTop="130dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/gangbook" />
+
+    <ImageButton
+        android:id="@+id/jongro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="145dp"
+        android:layout_marginTop="135dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/jongro" />
+
+    <ImageButton
+        android:id="@+id/eunpyoung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="105dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/eunpyoung"/>
+
+    <ImageButton
+        android:id="@+id/gangseo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="165dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/gangseo"/>
+
+    <ImageButton
+        android:id="@+id/mapo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="190dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/mapo"/>
+
+    <ImageButton
+        android:id="@+id/seodamoon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="135dp"
+        android:layout_marginTop="180dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/seodamoon" />
+
+    <ImageButton
+        android:id="@+id/sungbook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="190dp"
+        android:layout_marginTop="180dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/sungbook"
+         />
+
+    <ImageButton
+        android:id="@+id/dongdamoon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="180dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/dongdamoon" />
+
+    <ImageButton
+        android:id="@+id/jungrang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="170dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/jungrang" />
+
+    <ImageButton
+        android:id="@+id/yangcheon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="225dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/yangcheon" />
+
+    <ImageButton
+        android:id="@+id/guro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="265dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/guro" />
+
+    <ImageButton
+        android:id="@+id/ydp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="240dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/ydp" />
+
+    <ImageButton
+        android:id="@+id/guemcheon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="95dp"
+        android:layout_marginTop="285dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/guemcheon" />
+
+    <ImageButton
+        android:id="@+id/dongjak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="135dp"
+        android:layout_marginTop="270dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/dongjak"/>
+
+    <ImageButton
+        android:id="@+id/jung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="170dp"
+        android:layout_marginTop="220dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/jung" />
+
+    <ImageButton
+        android:id="@+id/yoongsan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="170dp"
+        android:layout_marginTop="250dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/yoongsan" />
+
+    <ImageButton
+        android:id="@+id/gwanak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="135dp"
+        android:layout_marginTop="305dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/gwanak" />
+
+    <ImageButton
+        android:id="@+id/seocho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="190dp"
+        android:layout_marginTop="310dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/seocho"/>
+
+    <ImageButton
+        android:id="@+id/gangnam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="225dp"
+        android:layout_marginTop="260dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/gangnam"/>
+
+    <ImageButton
+        android:id="@+id/sungdong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="215dp"
+        android:layout_marginTop="225dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/sungdong" />
+
+    <ImageButton
+        android:id="@+id/gwangjin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="220dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/gwangjin"/>
+
+    <ImageButton
+        android:id="@+id/gangdong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="295dp"
+        android:layout_marginTop="215dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/gangdong"
+        tools:ignore="RtlCompat" />
+
+    <ImageButton
+        android:id="@+id/songpa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="285dp"
+        android:layout_marginTop="265dp"
+        android:background="#00ff0000"
+        android:onClick="clickbtn"
+        android:src="@drawable/songpa" />
+
+</RelativeLayout>
