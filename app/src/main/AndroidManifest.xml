@@ -26,7 +26,7 @@
         <activity android:name=".GalleryList"></activity>
         <activity android:name=".Activity.MapActivity"></activity>
         <activity android:name=".Activity.Map_sub_Activity"></activity>
-        <activity android:name=".Activity.MyGallery"></activity>
+        <activity android:name=".Activity.MyPage"></activity>
 
     </application>
 

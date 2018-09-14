@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.daewon.a2018_seoulapp.Activity.BaseActivity;
 import com.example.daewon.a2018_seoulapp.Activity.MapActivity;
-import com.example.daewon.a2018_seoulapp.Activity.MyGallery;
+import com.example.daewon.a2018_seoulapp.Activity.MyPage;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -91,6 +91,7 @@ public class GalleryList extends BaseActivity {
                     mypage.setImageResource(R.drawable.mypage_off);
                     i = 2;
                     Intent intent = new Intent(GalleryList.this, MapActivity.class);
+                    finish();
                     startActivity(intent);
                 }
             }
@@ -104,7 +105,8 @@ public class GalleryList extends BaseActivity {
                     find_gallery.setImageResource(R.drawable.gallery_off);
                     mypage.setImageResource(R.drawable.mypage_on);
                     i = 3;
-                    Intent intent = new Intent(GalleryList.this, MyGallery.class);
+                    Intent intent = new Intent(GalleryList.this, MyPage.class);
+                    finish();
                     startActivity(intent);
                 }
             }
