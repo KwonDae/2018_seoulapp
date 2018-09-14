@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.daewon.a2018_seoulapp.Activity.BaseActivity;
+import com.example.daewon.a2018_seoulapp.Activity.MapActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -88,6 +89,8 @@ public class GalleryList extends BaseActivity {
                     find_gallery.setImageResource(R.drawable.gallery_on);
                     mypage.setImageResource(R.drawable.mypage_off);
                     i = 2;
+                    Intent intent = new Intent(GalleryList.this, MapActivity.class);
+                    startActivity(intent);
                 }
             }
         });

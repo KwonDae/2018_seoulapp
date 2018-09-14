@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MapActivity">
+        <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,17 +19,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.ProfileActivity" />
-        <activity android:name=".Activity.LoginActivity" />
+
         <activity android:name=".Activity.FindActivity" />
         <activity android:name=".Topgallery" />
-<<<<<<< HEAD
-        <activity android:name=".GalleryList"></activity>
 
+        <activity android:name=".GalleryList"></activity>
+        <activity android:name=".Activity.MapActivity"></activity>
         <activity android:name=".Activity.Map_sub_Activity"></activity>
-=======
-        <activity android:name=".GalleryList" />
         <activity android:name=".Activity.MyGallery"></activity>
->>>>>>> ca290bab88abe52622b0cc229f9a59777f50e2d7
+
     </application>
 
 </manifest>
