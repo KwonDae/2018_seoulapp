@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import com.example.daewon.a2018_seoulapp.GalleryList;
 import com.example.daewon.a2018_seoulapp.R;
 
-public class MyPage extends AppCompatActivity {
+public class MyPage extends BaseActivity {
 
     private ImageButton best5, find_gallery, mypage;
     int i = 3;
