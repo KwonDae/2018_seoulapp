@@ -19,15 +19,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.ProfileActivity" />
-
         <activity android:name=".Activity.FindActivity" />
         <activity android:name=".Topgallery" />
-
-        <activity android:name=".GalleryList"></activity>
-        <activity android:name=".Activity.MapActivity"></activity>
-        <activity android:name=".Activity.Map_sub_Activity"></activity>
-        <activity android:name=".Activity.MyPage"></activity>
-
+        <activity android:name=".GalleryList" />
+        <activity android:name=".Activity.MapActivity" />
+        <activity android:name=".Activity.Map_sub_Activity" />
+        <activity android:name=".Activity.MyPage" />
+        <activity android:name=".Activity.Detail_Gallery"></activity>
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.daewon.a2018_seoulapp.Activity.BaseActivity;
+import com.example.daewon.a2018_seoulapp.Activity.Detail_Gallery;
 import com.example.daewon.a2018_seoulapp.Activity.MapActivity;
 import com.example.daewon.a2018_seoulapp.Activity.MyPage;
 import com.google.firebase.database.DataSnapshot;
@@ -126,14 +127,6 @@ public class GalleryList extends BaseActivity {
             ((CustomViewHolder)holder).textView.setText(imageDTOs.get(position).Gallery_name);
             ((CustomViewHolder)holder).textView2.setText(imageDTOs.get(position).Gallery_location_from_list);
             Glide.with(holder.itemView.getContext()).load(imageDTOs.get(position).Main_img).into(((CustomViewHolder)holder).imageView);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String url = imageDTOs.get(position).Main_img;
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(intent);
-                }
-            });
         }
 
         @Override
@@ -150,6 +143,16 @@ public class GalleryList extends BaseActivity {
                 imageView = view.findViewById(R.id.item_imageView);
                 textView = view.findViewById(R.id.item_textView);
                 textView2 = view.findViewById(R.id.item_textView2);
+
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(view.getContext(),Detail_Gallery.class);
+                        intent.putExtra("Location",textView2.getText().toString());
+                        intent.putExtra("Name",textView.getText().toString());
+                        startActivity(intent);
+                    }
+                });
             }
         }
     }

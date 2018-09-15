@@ -146,14 +146,7 @@ public class Map_sub_Activity extends BaseActivity {
             ((CustomViewHolder)holder).textView.setText(location_list.get(position).Gallery_name);
             ((CustomViewHolder)holder).textView2.setText(location_list.get(position).Gallery_location_from_list);
             Glide.with(holder.itemView.getContext()).load(location_list.get(position).Main_img).into(((CustomViewHolder)holder).imageView);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String url = location_list.get(position).Main_img;
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(intent);
-                }
-            });
+
         }
 
         @Override
@@ -170,6 +163,16 @@ public class Map_sub_Activity extends BaseActivity {
                 imageView = view.findViewById(R.id.item_imageView);
                 textView = view.findViewById(R.id.item_textView);
                 textView2 = view.findViewById(R.id.item_textView2);
+
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(view.getContext(),Detail_Gallery.class);
+                        intent.putExtra("Location",textView2.getText().toString());
+                        intent.putExtra("Name",textView.getText().toString());
+                        startActivity(intent);
+                    }
+                });
             }
         }
     }
