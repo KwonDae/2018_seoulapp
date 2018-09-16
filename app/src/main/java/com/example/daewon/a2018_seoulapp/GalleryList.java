@@ -80,7 +80,7 @@ public class GalleryList extends BaseActivity {
                 Toast.makeText(GalleryList.this, "bottom", Toast.LENGTH_SHORT).show();
             }
         });
-        database.getReference().child("Gallerys").child("강동구").addValueEventListener(new ValueEventListener() {
+        database.getReference().child("Gallerys").child("강서구").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 imageDTOs.clear();
@@ -159,7 +159,7 @@ public class GalleryList extends BaseActivity {
             ((CustomViewHolder)holder).starButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onStarClicked(database.getReference().child("Gallerys").child("강동구").child(uidLists.get(position)));
+                    onStarClicked(database.getReference().child("Gallerys").child("강서구").child(uidLists.get(position)));
                 }
             });
 
