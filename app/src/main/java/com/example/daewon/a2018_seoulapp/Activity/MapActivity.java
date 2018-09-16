@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.daewon.a2018_seoulapp.GalleryList;
 import com.example.daewon.a2018_seoulapp.R;
@@ -24,15 +25,20 @@ public class MapActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        location_text = (TextView)findViewById(R.id.location_text);
-        To_detail_button = (Button)findViewById(R.id.Button_todetail);
+        location_text = findViewById(R.id.location_text);
+        To_detail_button = findViewById(R.id.Button_todetail);
         best5 = findViewById(R.id.best5);
         find_gallery = findViewById(R.id.find_gallery);
         mypage = findViewById(R.id.mypage);
 
         To_detail_button.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                if(location_text.getText().toString().equals("지역선택")){
+                    Toast.makeText(MapActivity.this, "지역을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 startActivity(To_detail_list_intent);
             }
         });

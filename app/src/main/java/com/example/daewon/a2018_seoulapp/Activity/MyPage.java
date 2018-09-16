@@ -27,6 +27,7 @@ public class MyPage extends BaseActivity {
 
     private ImageButton best5, find_gallery, mypage;
     int i = 3;
+    private TextView textViewUserEmail;
     private ImageButton Logout;
     private ImageButton Delete;
 
@@ -40,11 +41,16 @@ public class MyPage extends BaseActivity {
         setContentView(R.layout.activity_my_page);
         Logout = (ImageButton) findViewById(R.id.Logout);
         Delete = (ImageButton) findViewById(R.id.Delete);
+        textViewUserEmail = (TextView) findViewById(R.id.textviewUserEmail);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        textViewUserEmail.setText("반갑습니다. "+ user.getEmail()+"님\n오늘도 행복한 하루!");
         best5 = findViewById(R.id.best5);
         find_gallery = findViewById(R.id.find_gallery);
         mypage = findViewById(R.id.mypage);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
         best5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +94,6 @@ public class MyPage extends BaseActivity {
             }
         });
 
-
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +103,7 @@ public class MyPage extends BaseActivity {
                 startActivity(intent);
             }
         });
+
         Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
