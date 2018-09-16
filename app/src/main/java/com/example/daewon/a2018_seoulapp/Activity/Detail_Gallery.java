@@ -5,13 +5,22 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.daewon.a2018_seoulapp.R;
+import com.example.daewon.a2018_seoulapp.comment_data;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +37,7 @@ public class Detail_Gallery extends BaseActivity  {
     TextView Gallery_explain;
     TextView Owner_explain;
     TextView Owner_insta;
+    Button submit_commets;
     TextView Gallery_location;
     TextView Gallery_time;
     TextView Gallery_fee;
@@ -39,6 +49,14 @@ public class Detail_Gallery extends BaseActivity  {
     private ImageView imageView4;
     private ImageView imageView5;
     private ImageView imageView6;
+    EditText comments;
+    private FirebaseDatabase database;
+    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference mReference = mDatabase.getReference();
+    private FirebaseAuth firebaseAuth;
+
+    private RecyclerView recyclerView;
+    private List<comment_data> comment_datas = new ArrayList<>();
 
     private List<String> img_lists = new ArrayList<String>();
 
@@ -50,6 +68,9 @@ public class Detail_Gallery extends BaseActivity  {
         Intent intent=getIntent();
         Detail_Loc = intent.getExtras().getString("Location");
         Detail_Name = intent.getExtras().getString("Name");
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String email = user.getEmail();
 
         Welcome_text = (TextView)findViewById(R.id.textView_title);
         imageView1 = (ImageView)findViewById(R.id.imageView1);
@@ -58,11 +79,13 @@ public class Detail_Gallery extends BaseActivity  {
         imageView4 = (ImageView)findViewById(R.id.imageView4);
         imageView5 = (ImageView)findViewById(R.id.imageView5);
         imageView6 = (ImageView)findViewById(R.id.imageView6);
+        comments = (EditText)findViewById(R.id.Comments);
         Gallery_name = (TextView)findViewById(R.id.Gallery_name);
         Gallery_explain= (TextView)findViewById(R.id.Gallery_explain);
         Owner_explain= (TextView)findViewById(R.id.Owner_explain);
         Owner_insta= (TextView)findViewById(R.id.Owner_insta);
         Gallery_location= (TextView)findViewById(R.id.Gallery_location);
+        submit_commets=(Button)findViewById(R.id.comment_submit);
         Gallery_time= (TextView)findViewById(R.id.Gallery_time);
         Gallery_fee= (TextView)findViewById(R.id.Gallery_fee);
 
@@ -114,6 +137,54 @@ public class Detail_Gallery extends BaseActivity  {
             }
         };
         category_Ref.addListenerForSingleValueEvent(valueEventListener);
+
+        submit_commets.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String comment = comments.getText().toString();
+
+                comment_data commentData = new comment_data();
+                mReference = mDatabase.getReference("Gallerys/"+Detail_Loc+"/"+Detail_Name+"/Comments");
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                String email = user.getEmail();
+                int index = email.indexOf("@");
+                String save_email = email.substring(0,index);
+
+                commentData.email = email;
+                commentData.comment = comment;
+
+                mReference.child("comment"+save_email).setValue(commentData);
+
+                comments.setText("");
+                Toast.makeText(getBaseContext(),"리뷰 작성이 완료되었습니다.",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final BoardRecylcerViewAdapter boardRecylcerViewAdapter = new BoardRecylcerViewAdapter();
+        recyclerView.setAdapter(boardRecylcerViewAdapter);
+        database = FirebaseDatabase.getInstance();
+
+        database.getReference().child("Gallerys/"+Detail_Loc+"/"+Detail_Name+"/Comments").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                comment_datas.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    comment_data cd = snapshot.getValue(comment_data.class);
+                    //System.out.println(my_gallery_read_data.My_Gallery_name);
+                    comment_datas.add(cd);
+                }
+                boardRecylcerViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void push_imgs(final List img_list){
@@ -213,6 +284,39 @@ public class Detail_Gallery extends BaseActivity  {
 
         }catch (Exception e){
 
+        }
+    }
+
+
+    class BoardRecylcerViewAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_list,parent,false);
+
+            return new CustomViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            ((CustomViewHolder)holder).textView.setText(comment_datas.get(position).email);
+            ((CustomViewHolder)holder).textView2.setText(comment_datas.get(position).comment);
+        }
+
+        @Override
+        public int getItemCount() {
+            return comment_datas.size();
+        }
+
+        private class CustomViewHolder extends RecyclerView.ViewHolder {
+            TextView textView;
+            TextView textView2;
+            public CustomViewHolder(View view) {
+                super(view);
+                textView = (TextView)view.findViewById(R.id.commet_name);
+                textView2 = (TextView)view.findViewById(R.id.comment_content);
+
+            }
         }
     }
 
