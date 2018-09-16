@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.daewon.a2018_seoulapp.GalleryList;
 import com.example.daewon.a2018_seoulapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -84,7 +85,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             finish();
-                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            startActivity(new Intent(getApplicationContext(), GalleryList.class));
                         } else {
                             Toast.makeText(getApplicationContext(), "로그인 실패!", Toast.LENGTH_LONG).show();
                             textviewMessage.setText("로그인 실패 유형\n - password가 맞지 않습니다.\n -서버에러");
