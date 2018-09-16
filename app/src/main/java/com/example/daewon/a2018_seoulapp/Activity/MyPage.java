@@ -44,7 +44,7 @@ public class MyPage extends BaseActivity {
         textViewUserEmail = (TextView) findViewById(R.id.textviewUserEmail);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        textViewUserEmail.setText("반갑습니다. "+ user.getEmail()+"님\n오늘도 행복한 하루!");
+        textViewUserEmail.setText("반갑습니다. "+ user.getEmail()+"님\n오늘도 행복한 하루되세요!");
         best5 = findViewById(R.id.best5);
         find_gallery = findViewById(R.id.find_gallery);
         mypage = findViewById(R.id.mypage);
