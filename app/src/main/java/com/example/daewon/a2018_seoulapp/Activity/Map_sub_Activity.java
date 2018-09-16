@@ -1,7 +1,6 @@
 package com.example.daewon.a2018_seoulapp.Activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.daewon.a2018_seoulapp.GalleryList;
@@ -51,8 +49,6 @@ public class Map_sub_Activity extends BaseActivity {
 
         if(intent != null){
             region = intent.getStringExtra("name");
-
-
         }
 
         database = FirebaseDatabase.getInstance();

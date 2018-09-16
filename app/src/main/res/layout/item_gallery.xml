@@ -21,4 +21,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/item_textView2"
         android:text="TextView"/>
+
+    <ImageView
+        android:id="@+id/starButton_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/baseline_favorite_border_black_24" />
 </LinearLayout>

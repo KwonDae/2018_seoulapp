@@ -1,7 +1,7 @@
 package com.example.daewon.a2018_seoulapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,15 +12,21 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.daewon.a2018_seoulapp.Activity.BaseActivity;
 import com.example.daewon.a2018_seoulapp.Activity.Detail_Gallery;
 import com.example.daewon.a2018_seoulapp.Activity.MapActivity;
 import com.example.daewon.a2018_seoulapp.Activity.MyPage;
+import com.example.daewon.a2018_seoulapp.Util.OnSwipeTouchListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -28,22 +34,25 @@ import java.util.List;
 
 public class GalleryList extends BaseActivity {
 
-    private RecyclerView recyclerView;
-    private List<ImageDTO> imageDTOs = new ArrayList<>();
-    private List<String> uidLists = new ArrayList<>();
-    private FirebaseDatabase database;
+        private RecyclerView recyclerView;
+        private List<ImageDTO> imageDTOs = new ArrayList<>();
+        private List<String> uidLists = new ArrayList<>();
+        private FirebaseDatabase database;
+        private FirebaseAuth auth;
+        private String temp1,temp2,temp3,temp4,temp5;
+        private int count=0;
 
-    private String temp1,temp2,temp3,temp4,temp5;
-    private int count=0;
-
-    private ImageButton best5, find_gallery, mypage;
-    int i = 1;
-    @Override
+        private ImageButton best5, find_gallery, mypage;
+        int i = 1;
+        @SuppressLint("ClickableViewAccessibility")
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery_list);
 
         database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+
         recyclerView = findViewById(R.id.recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final GalleryListAdapter galleryListAdapter = new GalleryListAdapter();
@@ -54,13 +63,33 @@ public class GalleryList extends BaseActivity {
         find_gallery = findViewById(R.id.find_gallery);
         mypage = findViewById(R.id.mypage);
 
-        database.getReference().child("Gallerys").child("강서구").addValueEventListener(new ValueEventListener() {
+
+        recyclerView.setOnTouchListener(new OnSwipeTouchListener(GalleryList.this) {
+            public void onSwipeTop() {
+                Toast.makeText(GalleryList.this, "top", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeRight() {
+                Toast.makeText(GalleryList.this, "right", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeLeft() {
+               Intent intent = new Intent(getApplicationContext(), MyPage.class);
+               finish();
+               startActivity(intent);
+            }
+            public void onSwipeBottom() {
+                Toast.makeText(GalleryList.this, "bottom", Toast.LENGTH_SHORT).show();
+            }
+        });
+        database.getReference().child("Gallerys").child("강동구").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 imageDTOs.clear();
+                uidLists.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ImageDTO imageDTO = snapshot.getValue(ImageDTO.class);
+                    String uidKey = snapshot.getKey();
                     imageDTOs.add(imageDTO);
+                    uidLists.add(uidKey);
                 }
                 galleryListAdapter.notifyDataSetChanged();
             }
@@ -127,6 +156,19 @@ public class GalleryList extends BaseActivity {
             ((CustomViewHolder)holder).textView.setText(imageDTOs.get(position).Gallery_name);
             ((CustomViewHolder)holder).textView2.setText(imageDTOs.get(position).Gallery_location_from_list);
             Glide.with(holder.itemView.getContext()).load(imageDTOs.get(position).Main_img).into(((CustomViewHolder)holder).imageView);
+            ((CustomViewHolder)holder).starButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onStarClicked(database.getReference().child("Gallerys").child("강동구").child(uidLists.get(position)));
+                }
+            });
+
+            if (imageDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
+                ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_black_24);
+            } else {
+                ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_border_black_24);
+            }
+
         }
 
         @Override
@@ -134,15 +176,50 @@ public class GalleryList extends BaseActivity {
             return imageDTOs.size();
         }
 
+        private void onStarClicked(DatabaseReference postRef) {
+            postRef.runTransaction(new Transaction.Handler() {
+                @Override
+                public Transaction.Result doTransaction(MutableData mutableData) {
+                    ImageDTO imageDTO = mutableData.getValue(ImageDTO.class);
+                    if (imageDTO == null) {
+                        return Transaction.success(mutableData);
+                    }
+
+                    if (imageDTO.stars.containsKey(auth.getCurrentUser().getUid())) {
+                        // Unstar the post and remove self from stars
+                        imageDTO.starCount = imageDTO.starCount - 1;
+                        imageDTO.stars.remove(auth.getCurrentUser().getUid());
+                    } else {
+                        // Star the post and add self to stars
+                        imageDTO.starCount = imageDTO.starCount + 1;
+                        imageDTO.stars.put(auth.getCurrentUser().getUid(), true);
+                    }
+
+                    // Set value and report transaction success
+                    mutableData.setValue(imageDTO);
+                    return Transaction.success(mutableData);
+                }
+
+                @Override
+                public void onComplete(DatabaseError databaseError, boolean b,
+                                       DataSnapshot dataSnapshot) {
+                    // Transaction completed
+
+                }
+            });
+        }
+
         private class CustomViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
             TextView textView;
             TextView textView2;
+            ImageView starButton;
             public CustomViewHolder(View view) {
                 super(view);
                 imageView = view.findViewById(R.id.item_imageView);
                 textView = view.findViewById(R.id.item_textView);
                 textView2 = view.findViewById(R.id.item_textView2);
+                starButton = view.findViewById(R.id.starButton_imageView);
 
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
