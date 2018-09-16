@@ -2,9 +2,8 @@ package com.example.daewon.a2018_seoulapp.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.daewon.a2018_seoulapp.ImageDTO;
 import com.example.daewon.a2018_seoulapp.R;
 import com.example.daewon.a2018_seoulapp.comment_data;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +25,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -56,10 +58,13 @@ public class Detail_Gallery extends BaseActivity  {
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mReference = mDatabase.getReference();
     private FirebaseAuth firebaseAuth;
-
+    private FirebaseAuth auth;
+    private List<ImageDTO> imageDTOs = new ArrayList<>();
+    private List<String> uidLists = new ArrayList<>();
+    private ImageView starButton2;
     private RecyclerView recyclerView;
     private List<comment_data> comment_datas = new ArrayList<>();
-
+    public int detail_position;
     private List<String> img_lists = new ArrayList<String>();
 
     @Override
@@ -73,6 +78,7 @@ public class Detail_Gallery extends BaseActivity  {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String email = user.getEmail();
+        auth = FirebaseAuth.getInstance();
 
         Welcome_text = (TextView)findViewById(R.id.textView_title);
         imageView1 = (ImageView)findViewById(R.id.imageView1);
@@ -90,16 +96,25 @@ public class Detail_Gallery extends BaseActivity  {
         submit_commets=(Button)findViewById(R.id.comment_submit);
         Gallery_time= (TextView)findViewById(R.id.Gallery_time);
         Gallery_fee= (TextView)findViewById(R.id.Gallery_fee);
+        starButton2 = findViewById(R.id.starButton2_imageView);
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference Gal_Ref = rootRef.child("Gallerys");
         DatabaseReference category_Ref = Gal_Ref.child(Detail_Loc);
 
+
+
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                imageDTOs.clear();
+                uidLists.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    ImageDTO imageDTO = ds.getValue(ImageDTO.class);
+                    String uidKey = ds.getKey();
+                    imageDTOs.add(imageDTO);
+                    uidLists.add(uidKey);
+
                     if(Detail_Name.equals(ds.getKey().toString())){
                         Welcome_text.setText(Detail_Name+ " 갤러리 소개 페이지");
                         Gallery_name.setText(ds.child("Gallery_name").getValue().toString());
@@ -170,7 +185,14 @@ public class Detail_Gallery extends BaseActivity  {
             }
         });
 
+        starButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onStarClicked(database.getReference().child("Gallerys").child(Detail_Loc).child(Detail_Name));
 
+            }
+
+        });
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final BoardRecylcerViewAdapter boardRecylcerViewAdapter = new BoardRecylcerViewAdapter();
@@ -191,6 +213,39 @@ public class Detail_Gallery extends BaseActivity  {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void onStarClicked(DatabaseReference postRef) {
+        postRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                ImageDTO imageDTO = mutableData.getValue(ImageDTO.class);
+                if (imageDTO == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                if (imageDTO.stars.containsKey(auth.getCurrentUser().getUid())) {
+                    // Unstar the post and remove self from stars
+                    imageDTO.starCount = imageDTO.starCount - 1;
+                    imageDTO.stars.remove(auth.getCurrentUser().getUid());
+                } else {
+                    // Star the post and add self to stars
+                    imageDTO.starCount = imageDTO.starCount + 1;
+                    imageDTO.stars.put(auth.getCurrentUser().getUid(), true);
+                }
+
+                // Set value and report transaction success
+                mutableData.setValue(imageDTO);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+                // Transaction completed
 
             }
         });
@@ -307,10 +362,14 @@ public class Detail_Gallery extends BaseActivity  {
         }
 
         @Override
+
+
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             ((CustomViewHolder)holder).textView.setText("작성 자 : "+comment_datas.get(position).email);
             ((CustomViewHolder)holder).textView2.setText("내용 : "+comment_datas.get(position).comment);
             ((CustomViewHolder)holder).textView_date.setText("작성 날짜 : "+comment_datas.get(position).date);
+            detail_position = position;
+
         }
 
         @Override
@@ -318,10 +377,13 @@ public class Detail_Gallery extends BaseActivity  {
             return comment_datas.size();
         }
 
+
+
         private class CustomViewHolder extends RecyclerView.ViewHolder {
             TextView textView;
             TextView textView2;
             TextView textView_date;
+
             public CustomViewHolder(View view) {
                 super(view);
                 textView = (TextView)view.findViewById(R.id.commet_name);
