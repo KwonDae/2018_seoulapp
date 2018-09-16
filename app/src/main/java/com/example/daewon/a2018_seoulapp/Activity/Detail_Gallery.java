@@ -28,7 +28,6 @@ public class Detail_Gallery extends BaseActivity  {
     TextView Gallery_explain;
     TextView Owner_explain;
     TextView Owner_insta;
-    TextView Gallery_location_big;
     TextView Gallery_location;
     TextView Gallery_time;
     TextView Gallery_fee;
@@ -63,7 +62,6 @@ public class Detail_Gallery extends BaseActivity  {
         Gallery_explain= (TextView)findViewById(R.id.Gallery_explain);
         Owner_explain= (TextView)findViewById(R.id.Owner_explain);
         Owner_insta= (TextView)findViewById(R.id.Owner_insta);
-        Gallery_location_big = (TextView)findViewById(R.id.Gallery_location_big);
         Gallery_location= (TextView)findViewById(R.id.Gallery_location);
         Gallery_time= (TextView)findViewById(R.id.Gallery_time);
         Gallery_fee= (TextView)findViewById(R.id.Gallery_fee);
@@ -82,11 +80,10 @@ public class Detail_Gallery extends BaseActivity  {
                         Gallery_name.setText(ds.child("Gallery_name").getValue().toString());
                         Gallery_explain.setText(ds.child("Gallery_explain").getValue().toString());
                         Owner_explain.setText(ds.child("Owner_explain").getValue().toString());
-                        Owner_insta.setText(ds.child("Owner_insta").getValue().toString());
+                        Owner_insta.setText("작가 Insta : " + ds.child("Owner_insta").getValue().toString());
                         Gallery_location.setText(ds.child("Gallery_location").getValue().toString());
                         Gallery_time.setText(ds.child("Gallery_time").getValue().toString());
                         Gallery_fee.setText(ds.child("Gallery_fee").getValue().toString());
-                        Gallery_location_big.setText(Detail_Loc);
 
                         if(ds.child("Gallery_imgs").hasChild("01")){
                             img_lists.add(ds.child("Gallery_imgs").child("01").getValue().toString());
