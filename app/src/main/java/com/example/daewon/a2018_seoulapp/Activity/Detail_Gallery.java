@@ -180,7 +180,11 @@ public class Detail_Gallery extends BaseActivity  {
             @Override
             public void onClick(View view) {
                 onStarClicked(database.getReference().child("Gallerys").child(Detail_Loc).child(Detail_Name));
-
+                if(imageDTOs.get(detail_position).stars.containsKey(auth.getCurrentUser().getUid())) {
+                    starButton2.setImageResource(R.drawable.baseline_favorite_black_24);
+                } else {
+                    starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
+                }
             }
 
         });
