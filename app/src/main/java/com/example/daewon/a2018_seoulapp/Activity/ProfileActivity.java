@@ -46,6 +46,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
+
         //유저가 로그인 하지 않은 상태라면 null 상태이고 이 액티비티를 종료하고 로그인 액티비티를 연다.
         if (firebaseAuth.getCurrentUser() == null) {
             finish();
