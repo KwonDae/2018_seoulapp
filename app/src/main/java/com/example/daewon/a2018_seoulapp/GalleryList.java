@@ -63,7 +63,7 @@ public class GalleryList extends BaseActivity {
         find_gallery = findViewById(R.id.find_gallery);
         mypage = findViewById(R.id.mypage);
 
-
+    //대원//
         recyclerView.setOnTouchListener(new OnSwipeTouchListener(GalleryList.this) {
             public void onSwipeTop() {
                 Toast.makeText(GalleryList.this, "top", Toast.LENGTH_SHORT).show();
