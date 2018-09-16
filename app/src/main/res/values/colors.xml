@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="statusBar">#321B53</color>
     <color name="white">#FFFFFF</color>
+    <color name="gray">#d4d4dd</color>
 </resources>
