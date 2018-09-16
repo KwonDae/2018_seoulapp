@@ -15,6 +15,6 @@ public class ImageDTO {
     public String Owner_insta;
     public int starCount = 0;
     public Map<String, Boolean> stars = new HashMap<>();
-    public Map<String, String> Comments = new HashMap<>();
+    public Map<String, comment_data> Comments = new HashMap<>();
     public Map<String, String> Gallery_imgs = new HashMap<>();
 }

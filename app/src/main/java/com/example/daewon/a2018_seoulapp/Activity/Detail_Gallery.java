@@ -308,9 +308,9 @@ public class Detail_Gallery extends BaseActivity  {
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ((CustomViewHolder)holder).textView.setText(comment_datas.get(position).email);
-            ((CustomViewHolder)holder).textView2.setText(comment_datas.get(position).comment);
-            ((CustomViewHolder)holder).textView_date.setText(comment_datas.get(position).date);
+            ((CustomViewHolder)holder).textView.setText("작성 자 : "+comment_datas.get(position).email);
+            ((CustomViewHolder)holder).textView2.setText("내용 : "+comment_datas.get(position).comment);
+            ((CustomViewHolder)holder).textView_date.setText("작성 날짜 : "+comment_datas.get(position).date);
         }
 
         @Override
