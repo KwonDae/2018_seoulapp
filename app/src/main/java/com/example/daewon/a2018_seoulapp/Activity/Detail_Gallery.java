@@ -29,7 +29,9 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Detail_Gallery extends BaseActivity  {
@@ -166,8 +168,15 @@ public class Detail_Gallery extends BaseActivity  {
                 int index = email.indexOf("@");
                 String save_email = email.substring(0,index);
 
+                long now = System.currentTimeMillis();
+                Date date = new Date(now);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String getTime = sdf.format(date);
+
+
                 commentData.email = email;
                 commentData.comment = comment;
+                commentData.date = getTime;
 
                 mReference.child("comment"+save_email).setValue(commentData);
 
@@ -353,10 +362,14 @@ public class Detail_Gallery extends BaseActivity  {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder,final int position) {
-            ((CustomViewHolder)holder).textView.setText(comment_datas.get(position).email);
-            ((CustomViewHolder)holder).textView2.setText(comment_datas.get(position).comment);
+
+
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            ((CustomViewHolder)holder).textView.setText("작성 자 : "+comment_datas.get(position).email);
+            ((CustomViewHolder)holder).textView2.setText("내용 : "+comment_datas.get(position).comment);
+            ((CustomViewHolder)holder).textView_date.setText("작성 날짜 : "+comment_datas.get(position).date);
             detail_position = position;
+
         }
 
         @Override
@@ -369,11 +382,13 @@ public class Detail_Gallery extends BaseActivity  {
         private class CustomViewHolder extends RecyclerView.ViewHolder {
             TextView textView;
             TextView textView2;
+            TextView textView_date;
 
             public CustomViewHolder(View view) {
                 super(view);
                 textView = (TextView)view.findViewById(R.id.commet_name);
                 textView2 = (TextView)view.findViewById(R.id.comment_content);
+                textView_date = (TextView)view.findViewById(R.id.comment_date);
 
             }
         }
