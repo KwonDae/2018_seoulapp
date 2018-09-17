@@ -37,6 +37,7 @@ public class Map_sub_Activity extends BaseActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth auth;
     String region;
+    int check;
 
     private String temp1,temp2,temp3,temp4,temp5;
     private int count=0;
@@ -159,8 +160,10 @@ public class Map_sub_Activity extends BaseActivity {
 
             if (imageDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_black_24);
+                check = 1;
             } else {
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_border_black_24);
+                check = 0;
             }
         }
 
@@ -220,6 +223,12 @@ public class Map_sub_Activity extends BaseActivity {
                         Intent intent = new Intent(view.getContext(),Detail_Gallery.class);
                         intent.putExtra("Location",textView2.getText().toString());
                         intent.putExtra("Name",textView.getText().toString());
+                        if(check == 1 ) {
+                            intent.putExtra("star",check);
+                        }
+                        else {
+                            intent.putExtra("star",check);
+                        }
                         startActivity(intent);
                     }
                 });
