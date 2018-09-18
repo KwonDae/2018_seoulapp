@@ -155,6 +155,7 @@ public class GalleryList extends BaseActivity {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
             ((CustomViewHolder)holder).textView.setText(imageDTOs.get(position).Gallery_name);
             ((CustomViewHolder)holder).textView2.setText(imageDTOs.get(position).Gallery_location_from_list);
+            ((CustomViewHolder)holder).star_textView.setText(Integer.toString(imageDTOs.get(position).starCount));
             Glide.with(holder.itemView.getContext()).load(imageDTOs.get(position).Main_img).into(((CustomViewHolder)holder).imageView);
             ((CustomViewHolder)holder).starButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -214,19 +215,21 @@ public class GalleryList extends BaseActivity {
             TextView textView;
             TextView textView2;
             ImageView starButton;
+            TextView star_textView;
             public CustomViewHolder(View view) {
                 super(view);
                 imageView = view.findViewById(R.id.item_imageView);
                 textView = view.findViewById(R.id.item_textView);
                 textView2 = view.findViewById(R.id.item_textView2);
                 starButton = view.findViewById(R.id.starButton_imageView);
-
+                star_textView = view.findViewById(R.id.star_textView);
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(view.getContext(),Detail_Gallery.class);
                         intent.putExtra("Location",textView2.getText().toString());
                         intent.putExtra("Name",textView.getText().toString());
+                        //intent.putExtra("starCount",star_textView.getText().toString());
                         startActivity(intent);
                     }
                 });

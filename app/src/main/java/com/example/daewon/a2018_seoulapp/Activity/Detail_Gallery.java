@@ -47,6 +47,7 @@ public class Detail_Gallery extends BaseActivity  {
     TextView Gallery_fee;
     private String Detail_Loc;
     private String Detail_Name;
+    private int check;
     private ImageView imageView1;
     private ImageView imageView2;
     private ImageView imageView3;
@@ -75,6 +76,7 @@ public class Detail_Gallery extends BaseActivity  {
         Intent intent=getIntent();
         Detail_Loc = intent.getExtras().getString("Location");
         Detail_Name = intent.getExtras().getString("Name");
+        check = intent.getExtras().getInt("star");
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String email = user.getEmail();
@@ -185,11 +187,23 @@ public class Detail_Gallery extends BaseActivity  {
             }
         });
 
+        if(check == 1) {
+            starButton2.setImageResource(R.drawable.baseline_favorite_black_24);
+        } else if( check == 0){
+            starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
+        }
+
         starButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onStarClicked(database.getReference().child("Gallerys").child(Detail_Loc).child(Detail_Name));
-
+                if(check == 1){
+                    check = 0;
+                    starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
+                } else if(check == 0){
+                    check = 1;
+                    starButton2.setImageResource(R.drawable.baseline_favorite_black_24);
+                }
             }
 
         });
