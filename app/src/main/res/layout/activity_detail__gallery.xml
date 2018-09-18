@@ -117,16 +117,12 @@
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/textView2"
+        <ImageView
+            android:id="@+id/imageView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray"
-            android:text="갤러리 소개"
-            android:paddingLeft="15dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/gallert_explain_img" />
 
         <TextView
             android:id="@+id/Gallery_explain"
@@ -141,17 +137,12 @@
             android:paddingTop="5dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <TextView
-            android:id="@+id/textView3"
+        <ImageView
+            android:id="@+id/imageView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:paddingTop="5dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="5dp"
-            android:background="@color/gray"
-            android:text="작가 소개"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/owner_explain_img" />
 
         <TextView
             android:id="@+id/Owner_explain"
@@ -179,17 +170,12 @@
             android:paddingTop="5dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <TextView
-            android:id="@+id/textView6"
+        <ImageView
+            android:id="@+id/imageView10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="갤러리 정보"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:background="@color/gray"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/gallert_information_img" />
 
         <TextView
             android:id="@+id/Gallery_location"
@@ -248,17 +234,7 @@
             android:paddingTop="5dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="리뷰"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:background="@color/gray"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
 
         <LinearLayout
             android:padding="20dp"
@@ -285,7 +261,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp" />
+                android:layout_marginTop="30dp" />
 
         </LinearLayout>
     </LinearLayout>
