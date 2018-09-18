@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
@@ -105,28 +106,25 @@
                 android:id="@+id/starButton2_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/baseline_favorite_border_black_24" />
+
+                app:srcCompat="@drawable/star" />
 
             <TextView
                 android:id="@+id/like_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="25dp"
                 android:text="좋아요 수" />
 
 
         </LinearLayout>
 
 
-        <TextView
+        <ImageView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/gray"
-            android:text="갤러리 소개"
-            android:paddingLeft="15dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/about_gallery" />
 
         <TextView
             android:id="@+id/Gallery_explain"
@@ -141,17 +139,12 @@
             android:paddingTop="5dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:paddingTop="5dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="5dp"
-            android:background="@color/gray"
-            android:text="작가 소개"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/about_author"
+             />
 
         <TextView
             android:id="@+id/Owner_explain"
@@ -179,17 +172,12 @@
             android:paddingTop="5dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="갤러리 정보"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:background="@color/gray"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/info_gallery"
+            />
 
         <TextView
             android:id="@+id/Gallery_location"
@@ -248,17 +236,12 @@
             android:paddingTop="5dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="리뷰"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:background="@color/gray"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/review"
+           />
 
         <LinearLayout
             android:padding="20dp"

@@ -38,6 +38,7 @@ public class Map_sub_Activity extends BaseActivity {
     private FirebaseAuth auth;
     String region;
     int check;
+    int position;
 
     private String temp1,temp2,temp3,temp4,temp5;
     private int count=0;
@@ -73,11 +74,9 @@ public class Map_sub_Activity extends BaseActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 imageDTOs.clear();
-                imageDTOs.clear();
                 uidLists.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     ImageDTO imageDTO = snapshot.getValue(ImageDTO.class);
-                    //System.out.println(my_gallery_read_data.My_Gallery_name);
                     String uidKey = snapshot.getKey();
                     imageDTOs.add(imageDTO);
                     uidLists.add(uidKey);
@@ -154,12 +153,12 @@ public class Map_sub_Activity extends BaseActivity {
             ((CustomViewHolder)holder).starButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onStarClicked(database.getReference().child("Gallerys").child("강서구").child(uidLists.get(position)));
+                    onStarClicked(database.getReference().child("Gallerys").child(region).child(uidLists.get(position)));
                 }
             });
 
             if (imageDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
-                ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_black_24);
+                ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.star);
                 check = 1;
             } else {
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_border_black_24);

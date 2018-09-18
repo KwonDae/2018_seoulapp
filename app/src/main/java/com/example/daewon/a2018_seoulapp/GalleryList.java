@@ -165,7 +165,7 @@ public class GalleryList extends BaseActivity {
             });
 
             if (imageDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
-                ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_black_24);
+                ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.star);
             } else {
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_border_black_24);
             }
