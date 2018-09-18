@@ -109,12 +109,14 @@
                 android:id="@+id/starButton2_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/baseline_favorite_border_black_24" />
+
+                app:srcCompat="@drawable/star" />
 
             <TextView
                 android:id="@+id/like_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="25dp"
                 android:text="좋아요 수" />
 
 
@@ -122,11 +124,11 @@
 
 
         <ImageView
-            android:id="@+id/imageView11"
+
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/gallert_explain_img" />
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/about_gallery" />
 
         <TextView
             android:id="@+id/Gallery_explain"
@@ -142,11 +144,12 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <ImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/owner_explain_img" />
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/about_author"
+             />
+
 
         <TextView
             android:id="@+id/Owner_explain"
@@ -175,11 +178,11 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <ImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/textView6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/gallert_information_img" />
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/info_gallery"
+            />
 
         <TextView
             android:id="@+id/Gallery_location"
@@ -238,13 +241,12 @@
             android:paddingTop="5dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/comment_review_img" />
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/review"
+           />
 
         <LinearLayout
             android:padding="20dp"

@@ -188,7 +188,7 @@ public class Detail_Gallery extends BaseActivity  {
         });
 
         if(check == 1) {
-            starButton2.setImageResource(R.drawable.baseline_favorite_black_24);
+            starButton2.setImageResource(R.drawable.star);
         } else if( check == 0){
             starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
         }
@@ -202,7 +202,7 @@ public class Detail_Gallery extends BaseActivity  {
                     starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
                 } else if(check == 0){
                     check = 1;
-                    starButton2.setImageResource(R.drawable.baseline_favorite_black_24);
+                    starButton2.setImageResource(R.drawable.star);
                 }
             }
 

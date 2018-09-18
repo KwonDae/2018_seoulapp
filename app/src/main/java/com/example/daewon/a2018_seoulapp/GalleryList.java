@@ -203,6 +203,7 @@ public class GalleryList extends BaseActivity {
 
             /*if (imageDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_black_24);
+>>>>>>> 8395bc550ef6c029e717b21471a2b3c40b05b5cd
             } else {
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_border_black_24);
             }*/
