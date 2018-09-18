@@ -19,6 +19,9 @@
             android:layout_height="wrap_content"
             android:text="나의 갤러리 관리"
             android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/our_color"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <HorizontalScrollView
@@ -121,6 +124,7 @@
 
 
         <ImageView
+
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -145,6 +149,7 @@
             android:layout_height="60dp"
             app:srcCompat="@drawable/about_author"
              />
+
 
         <TextView
             android:id="@+id/Owner_explain"
@@ -268,7 +273,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp" />
+                android:layout_marginTop="30dp" />
 
         </LinearLayout>
     </LinearLayout>
