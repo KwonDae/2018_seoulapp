@@ -29,7 +29,11 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Comment;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class GalleryList extends BaseActivity {
@@ -41,8 +45,9 @@ public class GalleryList extends BaseActivity {
         private FirebaseAuth auth;
         private String temp1,temp2,temp3,temp4,temp5;
         private int count=0;
+        String[] Gallery_locations_list;
 
-        private ImageButton best5, find_gallery, mypage;
+         private ImageButton best5, find_gallery, mypage;
         int i = 1;
         @SuppressLint("ClickableViewAccessibility")
         @Override
@@ -52,6 +57,8 @@ public class GalleryList extends BaseActivity {
 
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
+        Gallery_locations_list = new String[]{"강서구", "마포구", "영등포구", "양천구", "구로구", "금천구", "관악구", "동작구", "용산구", "서초구", "강남구", "송파구", "강동구", "광진구", "성동구", "중구", "용산구", "서대문구", "은평구", "종로구", "성북수", "동대문구", "중랑구", "강북구", "노원구", "도봉구"};
+
 
         recyclerView = findViewById(R.id.recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -63,7 +70,6 @@ public class GalleryList extends BaseActivity {
         find_gallery = findViewById(R.id.find_gallery);
         mypage = findViewById(R.id.mypage);
 
-    //대원//
         recyclerView.setOnTouchListener(new OnSwipeTouchListener(GalleryList.this) {
             public void onSwipeTop() {
                 Toast.makeText(GalleryList.this, "top", Toast.LENGTH_SHORT).show();
@@ -80,25 +86,34 @@ public class GalleryList extends BaseActivity {
                 Toast.makeText(GalleryList.this, "bottom", Toast.LENGTH_SHORT).show();
             }
         });
-        database.getReference().child("Gallerys").child("강서구").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                imageDTOs.clear();
-                uidLists.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    ImageDTO imageDTO = snapshot.getValue(ImageDTO.class);
-                    String uidKey = snapshot.getKey();
-                    imageDTOs.add(imageDTO);
-                    uidLists.add(uidKey);
-                }
-                galleryListAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        imageDTOs.clear();
 
-            }
-        });
+       for(int k = 0; k<Gallery_locations_list.length;k++) {
+           database.getReference().child("Gallerys").child(Gallery_locations_list[k]).addValueEventListener(new ValueEventListener() {
+               @Override
+               public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                   uidLists.clear();
+                   for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                       ImageDTO imageDTO = snapshot.getValue(ImageDTO.class);
+                       System.out.println(imageDTO.Gallery_name);
+                       String uidKey = snapshot.getKey();
+                       imageDTOs.add(imageDTO);
+                       uidLists.add(uidKey);
+                   }
+                   galleryListAdapter.notifyDataSetChanged();
+               }
+
+               @Override
+               public void onCancelled(@NonNull DatabaseError databaseError) {
+
+               }
+           });
+       }
+
+        //ArrayList temp = new ArrayList();
+       // temp.add(imageDTOs);
 
         best5.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +167,29 @@ public class GalleryList extends BaseActivity {
             return new CustomViewHolder(view);
         }
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
+        public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+
+            ArrayList temp = new ArrayList();
+            temp.add(imageDTOs);
+            for (int i = 0; i < temp.size(); i++) {
+                Collections.sort((List<ImageDTO>) temp.get(i), new Comparator<ImageDTO>() {
+                    @Override
+                    public int compare(ImageDTO imageDTO, ImageDTO t1) {
+                        if (imageDTO.starCount > t1.starCount) {
+                            return 1;
+                        } else if (imageDTO.starCount < t1.starCount) {
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                });
+                Collections.reverse((List<?>) temp.get(i));
+            }
+
+            if(imageDTOs.size() > 5) {
+                imageDTOs = imageDTOs.subList(0, 5);
+            }
             ((CustomViewHolder)holder).textView.setText(imageDTOs.get(position).Gallery_name);
             ((CustomViewHolder)holder).textView2.setText(imageDTOs.get(position).Gallery_location_from_list);
             ((CustomViewHolder)holder).star_textView.setText(Integer.toString(imageDTOs.get(position).starCount));
@@ -160,15 +197,15 @@ public class GalleryList extends BaseActivity {
             ((CustomViewHolder)holder).starButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onStarClicked(database.getReference().child("Gallerys").child("강서구").child(uidLists.get(position)));
+                    //onStarClicked(database.getReference().child("Gallerys").child((String) ((CustomViewHolder)holder).textView2.getText()).child(imageDTOs.get(position).Gallery_name));
                 }
             });
 
-            if (imageDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
+            /*if (imageDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_black_24);
             } else {
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_border_black_24);
-            }
+            }*/
 
         }
 
