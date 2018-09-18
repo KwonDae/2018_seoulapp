@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
@@ -18,6 +19,9 @@
             android:layout_height="wrap_content"
             android:text="나의 갤러리 관리"
             android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/our_color"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <HorizontalScrollView
@@ -235,6 +239,12 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/comment_review_img" />
 
         <LinearLayout
             android:padding="20dp"
