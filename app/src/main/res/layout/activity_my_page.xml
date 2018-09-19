@@ -74,7 +74,7 @@
         android:gravity="center"
         android:text=""/>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
@@ -83,24 +83,31 @@
 
         <ImageButton
             android:id="@+id/Logout"
-            android:layout_width="80dp"
+            android:layout_width="85dp"
             android:layout_height="35dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="70dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/mypage_logout"
-            android:text="로그아웃" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/Delete"
-            android:layout_width="80dp"
+            android:layout_width="85dp"
             android:layout_height="35dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="70dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/mypage_signout"
-            android:text="회원탈퇴 합니다."
-            android:textColor="@color/colorAccent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 
 </RelativeLayout>
