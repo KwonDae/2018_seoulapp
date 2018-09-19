@@ -29,8 +29,6 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Comment;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -71,9 +69,7 @@ public class GalleryList extends BaseActivity {
         mypage = findViewById(R.id.mypage);
 
         recyclerView.setOnTouchListener(new OnSwipeTouchListener(GalleryList.this) {
-            public void onSwipeTop() {
-                Toast.makeText(GalleryList.this, "top", Toast.LENGTH_SHORT).show();
-            }
+
             public void onSwipeRight() {
                 Toast.makeText(GalleryList.this, "right", Toast.LENGTH_SHORT).show();
             }
@@ -82,9 +78,7 @@ public class GalleryList extends BaseActivity {
                finish();
                startActivity(intent);
             }
-            public void onSwipeBottom() {
-                Toast.makeText(GalleryList.this, "bottom", Toast.LENGTH_SHORT).show();
-            }
+
         });
 
         imageDTOs.clear();
@@ -267,7 +261,6 @@ public class GalleryList extends BaseActivity {
                         Intent intent = new Intent(view.getContext(),Detail_Gallery.class);
                         intent.putExtra("Location",textView2.getText().toString());
                         intent.putExtra("Name",textView.getText().toString());
-                        //intent.putExtra("starCount",star_textView.getText().toString());
                         startActivity(intent);
                     }
                 });

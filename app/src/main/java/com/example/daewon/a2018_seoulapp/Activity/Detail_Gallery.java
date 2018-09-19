@@ -45,9 +45,9 @@ public class Detail_Gallery extends BaseActivity  {
     TextView Gallery_location;
     TextView Gallery_time;
     TextView Gallery_fee;
+    TextView star_textView;
     private String Detail_Loc;
     private String Detail_Name;
-    private int check;
     private ImageView imageView1;
     private ImageView imageView2;
     private ImageView imageView3;
@@ -65,7 +65,7 @@ public class Detail_Gallery extends BaseActivity  {
     private ImageView starButton2;
     private RecyclerView recyclerView;
     private List<comment_data> comment_datas = new ArrayList<>();
-    public int detail_position;
+    public int detail_position =0 ;
     private List<String> img_lists = new ArrayList<String>();
 
     @Override
@@ -73,14 +73,14 @@ public class Detail_Gallery extends BaseActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail__gallery);
 
-        Intent intent=getIntent();
-        Detail_Loc = intent.getExtras().getString("Location");
-        Detail_Name = intent.getExtras().getString("Name");
-        check = intent.getExtras().getInt("star");
+
+        Detail_Loc = getIntent().getStringExtra("Location");
+        Detail_Name = getIntent().getStringExtra("Name");
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String email = user.getEmail();
         auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         Welcome_text = (TextView)findViewById(R.id.textView_title);
         imageView1 = (ImageView)findViewById(R.id.imageView1);
@@ -99,24 +99,23 @@ public class Detail_Gallery extends BaseActivity  {
         Gallery_time= (TextView)findViewById(R.id.Gallery_time);
         Gallery_fee= (TextView)findViewById(R.id.Gallery_fee);
         starButton2 = findViewById(R.id.starButton2_imageView);
-
+        star_textView = findViewById(R.id.star_textView);
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference Gal_Ref = rootRef.child("Gallerys");
         DatabaseReference category_Ref = Gal_Ref.child(Detail_Loc);
 
 
 
-        ValueEventListener valueEventListener = new ValueEventListener() {
+        database.getReference().child("Gallerys").child(Detail_Loc).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 imageDTOs.clear();
                 uidLists.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                for (final DataSnapshot ds : dataSnapshot.getChildren()) {
                     ImageDTO imageDTO = ds.getValue(ImageDTO.class);
                     String uidKey = ds.getKey();
                     imageDTOs.add(imageDTO);
                     uidLists.add(uidKey);
-
                     if(Detail_Name.equals(ds.getKey().toString())){
                         Welcome_text.setText(Detail_Name+ " 갤러리 소개 페이지");
                         Gallery_name.setText(ds.child("Gallery_name").getValue().toString());
@@ -126,6 +125,32 @@ public class Detail_Gallery extends BaseActivity  {
                         Gallery_location.setText(ds.child("Gallery_location").getValue().toString());
                         Gallery_time.setText(ds.child("Gallery_time").getValue().toString());
                         Gallery_fee.setText(ds.child("Gallery_fee").getValue().toString());
+
+                        if(ds.child("stars").hasChild(auth.getCurrentUser().getUid())) {
+                            starButton2.setImageResource(R.drawable.star);
+                            star_textView.setText(ds.child("starCount").getValue().toString());
+                        } else {
+                            starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
+                            star_textView.setText(ds.child("starCount").getValue().toString());
+
+                        }
+
+                        starButton2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                onStarClicked(database.getReference().child("Gallerys").child(Detail_Loc).child(uidLists.get(detail_position)));
+                                if(ds.child("stars").hasChild(auth.getCurrentUser().getUid())) {
+                                    starButton2.setImageResource(R.drawable.star);
+                                    star_textView.setText(ds.child("starCount").getValue().toString());
+
+                                } else {
+                                    starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
+                                    star_textView.setText(ds.child("starCount").getValue().toString());
+
+                                }
+                            }
+
+                        });
 
                         if(ds.child("Gallery_imgs").hasChild("01")){
                             img_lists.add(ds.child("Gallery_imgs").child("01").getValue().toString());
@@ -146,7 +171,9 @@ public class Detail_Gallery extends BaseActivity  {
                             img_lists.add(ds.child("Gallery_imgs").child("06").getValue().toString());
                         }
                         push_imgs(img_lists);
+                        return;
                     }
+                    detail_position++;
                 }
             }
 
@@ -154,8 +181,7 @@ public class Detail_Gallery extends BaseActivity  {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        };
-        category_Ref.addListenerForSingleValueEvent(valueEventListener);
+        });
 
         submit_commets.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,26 +213,6 @@ public class Detail_Gallery extends BaseActivity  {
             }
         });
 
-        if(check == 1) {
-            starButton2.setImageResource(R.drawable.star);
-        } else if( check == 0){
-            starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
-        }
-
-        starButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onStarClicked(database.getReference().child("Gallerys").child(Detail_Loc).child(Detail_Name));
-                if(check == 1){
-                    check = 0;
-                    starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
-                } else if(check == 0){
-                    check = 1;
-                    starButton2.setImageResource(R.drawable.star);
-                }
-            }
-
-        });
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final BoardRecylcerViewAdapter boardRecylcerViewAdapter = new BoardRecylcerViewAdapter();
@@ -376,13 +382,10 @@ public class Detail_Gallery extends BaseActivity  {
         }
 
         @Override
-
-
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             ((CustomViewHolder)holder).textView.setText("작성 자 : "+comment_datas.get(position).email);
             ((CustomViewHolder)holder).textView2.setText("내용 : "+comment_datas.get(position).comment);
             ((CustomViewHolder)holder).textView_date.setText("작성 날짜 : "+comment_datas.get(position).date);
-            detail_position = position;
 
         }
 

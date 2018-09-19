@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="@drawable/baseline_favorite_border_black_24" />
+            app:srcCompat="@drawable/star" />
 
         <TextView
             android:id="@+id/star_textView"

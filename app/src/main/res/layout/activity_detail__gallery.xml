@@ -113,7 +113,7 @@
                 app:srcCompat="@drawable/star" />
 
             <TextView
-                android:id="@+id/like_count"
+                android:id="@+id/star_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="25dp"

@@ -37,8 +37,7 @@ public class Map_sub_Activity extends BaseActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth auth;
     String region;
-    int check;
-    int position;
+    int temp;
 
     private String temp1,temp2,temp3,temp4,temp5;
     private int count=0;
@@ -149,6 +148,7 @@ public class Map_sub_Activity extends BaseActivity {
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position){
             ((CustomViewHolder)holder).textView.setText(imageDTOs.get(position).Gallery_name);
             ((CustomViewHolder)holder).textView2.setText(imageDTOs.get(position).Gallery_location_from_list);
+            ((CustomViewHolder)holder).star_textView.setText(Integer.toString(imageDTOs.get(position).starCount));
             Glide.with(holder.itemView.getContext()).load(imageDTOs.get(position).Main_img).into(((CustomViewHolder)holder).imageView);
             ((CustomViewHolder)holder).starButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -158,11 +158,11 @@ public class Map_sub_Activity extends BaseActivity {
             });
 
             if (imageDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
+                temp = position;
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.star);
-                check = 1;
             } else {
+                temp = position;
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_border_black_24);
-                check = 0;
             }
         }
 
@@ -209,25 +209,21 @@ public class Map_sub_Activity extends BaseActivity {
             TextView textView;
             TextView textView2;
             ImageView starButton;
+            TextView star_textView;
             public CustomViewHolder(View view) {
                 super(view);
                 imageView = view.findViewById(R.id.item_imageView);
                 textView = view.findViewById(R.id.item_textView);
                 textView2 = view.findViewById(R.id.item_textView2);
                 starButton = view.findViewById(R.id.starButton_imageView);
-
+                star_textView = view.findViewById(R.id.star_textView);
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(view.getContext(),Detail_Gallery.class);
                         intent.putExtra("Location",textView2.getText().toString());
                         intent.putExtra("Name",textView.getText().toString());
-                        if(check == 1 ) {
-                            intent.putExtra("star",check);
-                        }
-                        else {
-                            intent.putExtra("star",check);
-                        }
+                        intent.putExtra("position", temp);
                         startActivity(intent);
                     }
                 });
