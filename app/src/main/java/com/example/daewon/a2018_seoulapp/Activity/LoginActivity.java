@@ -42,7 +42,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             //이미 로그인 되었다면 이 액티비티를 종료함
             finish();
             //그리고 profile 액티비티를 연다.
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class)); //추가해 줄 ProfileActivity
+            startActivity(new Intent(getApplicationContext(), GalleryList.class)); //추가해 줄 ProfileActivity
 
         }
         //initializing views
