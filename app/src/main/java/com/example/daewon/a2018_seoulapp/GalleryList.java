@@ -163,6 +163,15 @@ public class GalleryList extends BaseActivity {
         @Override
         public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
 
+            for(int j = 0;j<imageDTOs.size();j++){
+                String temp_name = imageDTOs.get(j).Gallery_name;
+                for(int k = j+1;k<imageDTOs.size();k++){
+                    if(temp_name.equals(imageDTOs.get(k).Gallery_name)){
+                        imageDTOs.remove(j);
+                    }
+                }
+            }
+
             ArrayList temp = new ArrayList();
             temp.add(imageDTOs);
             for (int i = 0; i < temp.size(); i++) {
