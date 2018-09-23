@@ -31,6 +31,7 @@ public class MapActivity extends BaseActivity {
         find_gallery = findViewById(R.id.find_gallery);
         mypage = findViewById(R.id.mypage);
 
+
         To_detail_button.setOnClickListener(new View.OnClickListener() {
 
             @Override

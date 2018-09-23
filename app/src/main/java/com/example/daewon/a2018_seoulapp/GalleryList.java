@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.daewon.a2018_seoulapp.Activity.BaseActivity;
@@ -71,10 +70,12 @@ public class GalleryList extends BaseActivity {
         recyclerView.setOnTouchListener(new OnSwipeTouchListener(GalleryList.this) {
 
             public void onSwipeRight() {
-                Toast.makeText(GalleryList.this, "right", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), MyPage.class);
+                finish();
+                startActivity(intent);
             }
             public void onSwipeLeft() {
-               Intent intent = new Intent(getApplicationContext(), MyPage.class);
+               Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                finish();
                startActivity(intent);
             }
@@ -162,6 +163,15 @@ public class GalleryList extends BaseActivity {
         }
         @Override
         public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+
+            for(int j = 0;j<imageDTOs.size();j++){
+                String temp_name = imageDTOs.get(j).Gallery_name;
+                for(int k = j+1;k<imageDTOs.size();k++){
+                    if(temp_name.equals(imageDTOs.get(k).Gallery_name)){
+                        imageDTOs.remove(j);
+                    }
+                }
+            }
 
             ArrayList temp = new ArrayList();
             temp.add(imageDTOs);
