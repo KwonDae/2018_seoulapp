@@ -104,10 +104,10 @@ public class Detail_Gallery extends BaseActivity  {
         DatabaseReference Gal_Ref = rootRef.child("Gallerys");
         DatabaseReference category_Ref = Gal_Ref.child(Detail_Loc);
 
-        /*String email = firebaseAuth.getCurrentUser().getEmail();
+        String email = firebaseAuth.getCurrentUser().getEmail();
         int index = email.indexOf("@");
         final String user_email = email.substring(0,index);
-*/
+
 
         database.getReference().child("Gallerys").child(Detail_Loc).addValueEventListener(new ValueEventListener() {
             @Override
@@ -152,9 +152,11 @@ public class Detail_Gallery extends BaseActivity  {
                                 if(ds.child("stars").hasChild(auth.getCurrentUser().getUid())) {
                                     starButton2.setImageResource(R.drawable.star);
                                     star_textView.setText(ds.child("starCount").getValue().toString());
+                                    database.getReference().child("UserProfile").child(user_email).child(Detail_Name).setValue(Detail_Loc);
                                 } else {
                                     starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
                                     star_textView.setText(ds.child("starCount").getValue().toString());
+                                    database.getReference().child("UserProfile").child(user_email).child(Detail_Name).removeValue();
                                 }
                             }
                         });
