@@ -77,8 +77,8 @@ public class Detail_Gallery extends BaseActivity  {
         Detail_Loc = getIntent().getStringExtra("Location");
         Detail_Name = getIntent().getStringExtra("Name");
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        String email = user.getEmail();
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+        //String email = user.getEmail();
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
@@ -104,7 +104,10 @@ public class Detail_Gallery extends BaseActivity  {
         DatabaseReference Gal_Ref = rootRef.child("Gallerys");
         DatabaseReference category_Ref = Gal_Ref.child(Detail_Loc);
 
-
+        /*String email = firebaseAuth.getCurrentUser().getEmail();
+        int index = email.indexOf("@");
+        final String user_email = email.substring(0,index);
+*/
 
         database.getReference().child("Gallerys").child(Detail_Loc).addValueEventListener(new ValueEventListener() {
             @Override
@@ -126,30 +129,34 @@ public class Detail_Gallery extends BaseActivity  {
                         Gallery_time.setText(ds.child("Gallery_time").getValue().toString());
                         Gallery_fee.setText(ds.child("Gallery_fee").getValue().toString());
 
+                        Gallery_location.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Detail_Gallery.this, GooglemapActivity.class);
+                                startActivity(intent);
+                            }
+                        });
                         if(ds.child("stars").hasChild(auth.getCurrentUser().getUid())) {
                             starButton2.setImageResource(R.drawable.star);
                             star_textView.setText(ds.child("starCount").getValue().toString());
                         } else {
                             starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
                             star_textView.setText(ds.child("starCount").getValue().toString());
-
                         }
 
                         starButton2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 onStarClicked(database.getReference().child("Gallerys").child(Detail_Loc).child(uidLists.get(detail_position)));
+
                                 if(ds.child("stars").hasChild(auth.getCurrentUser().getUid())) {
                                     starButton2.setImageResource(R.drawable.star);
                                     star_textView.setText(ds.child("starCount").getValue().toString());
-
                                 } else {
                                     starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
                                     star_textView.setText(ds.child("starCount").getValue().toString());
-
                                 }
                             }
-
                         });
 
                         if(ds.child("Gallery_imgs").hasChild("01")){
