@@ -61,7 +61,7 @@ public class Detail_Gallery extends BaseActivity  {
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth auth;
     private List<ImageDTO> imageDTOs = new ArrayList<>();
-    private List<String> uidLists = new ArrayList<>();
+    //private List<String> uidLists = new ArrayList<>();
     private ImageView starButton2;
     private RecyclerView recyclerView;
     private List<comment_data> comment_datas = new ArrayList<>();
@@ -113,12 +113,12 @@ public class Detail_Gallery extends BaseActivity  {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 imageDTOs.clear();
-                uidLists.clear();
+                //uidLists.clear();
                 for (final DataSnapshot ds : dataSnapshot.getChildren()) {
                     ImageDTO imageDTO = ds.getValue(ImageDTO.class);
-                    String uidKey = ds.getKey();
+                    //String uidKey = ds.getKey();
                     imageDTOs.add(imageDTO);
-                    uidLists.add(uidKey);
+                    //uidLists.add(uidKey);
                     if(Detail_Name.equals(ds.getKey().toString())){
                         Welcome_text.setText(Detail_Name+ " 갤러리 소개 페이지");
                         Gallery_name.setText(ds.child("Gallery_name").getValue().toString());
@@ -147,7 +147,8 @@ public class Detail_Gallery extends BaseActivity  {
                         starButton2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                onStarClicked(database.getReference().child("Gallerys").child(Detail_Loc).child(uidLists.get(detail_position)));
+                                //onStarClicked(database.getReference().child("Gallerys").child(Detail_Loc).child(uidLists.get(detail_position)));
+                                onStarClicked(database.getReference().child("Gallerys").child(Detail_Loc).child(Detail_Name));
 
                                 if(ds.child("stars").hasChild(auth.getCurrentUser().getUid())) {
                                     starButton2.setImageResource(R.drawable.star);
