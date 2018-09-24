@@ -3,6 +3,7 @@ package com.example.daewon.a2018_seoulapp.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,6 +12,15 @@ import android.widget.Toast;
 
 import com.example.daewon.a2018_seoulapp.GalleryList;
 import com.example.daewon.a2018_seoulapp.R;
+import com.example.daewon.a2018_seoulapp.Util.Like_gal;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MapActivity extends BaseActivity {
 
@@ -21,10 +31,45 @@ public class MapActivity extends BaseActivity {
     Button To_detail_button;
     private ImageButton best5, find_gallery, mypage;
     int i = 2;
+    private ArrayList<Like_gal> like_gal_list = new ArrayList<>();
+    private FirebaseAuth firebaseAuth;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        String email = firebaseAuth.getCurrentUser().getEmail();
+        int index = email.indexOf("@");
+        final String user_email = email.substring(0,index);
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference user_Ref = rootRef.child("UserProfile");
+        DatabaseReference category_Ref = user_Ref.child(user_email);
+        DatabaseReference like_Ref = category_Ref.child("Like");
+
+        //        appcall db내 앱이름으로 불러옴
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                like_gal_list.clear();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Like_gal temp = new Like_gal();
+                    temp.like_name = ds.getKey().toString();
+                    temp.like_location = ds.getValue().toString();
+                    like_gal_list.add(temp);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        };
+        like_Ref.addListenerForSingleValueEvent(valueEventListener);
+
         location_text = findViewById(R.id.location_text);
         To_detail_button = findViewById(R.id.Button_todetail);
         best5 = findViewById(R.id.best5);
@@ -80,6 +125,8 @@ public class MapActivity extends BaseActivity {
                     mypage.setImageResource(R.drawable.mypage_on);
                     i = 3;
                     Intent intent = new Intent(MapActivity.this, MyPage.class);
+                    intent.putExtra("list",like_gal_list);
+
                     finish();
                     startActivity(intent);
                 }

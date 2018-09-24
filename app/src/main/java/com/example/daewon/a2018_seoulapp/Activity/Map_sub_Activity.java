@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.daewon.a2018_seoulapp.GalleryList;
 import com.example.daewon.a2018_seoulapp.ImageDTO;
 import com.example.daewon.a2018_seoulapp.R;
+import com.example.daewon.a2018_seoulapp.Util.Like_gal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +39,7 @@ public class Map_sub_Activity extends BaseActivity {
     private FirebaseAuth auth;
     String region;
     int temp;
+    private ArrayList<Like_gal> like_gal_list = new ArrayList<>();
 
     private String temp1,temp2,temp3,temp4,temp5;
     private int count=0;
@@ -48,6 +50,38 @@ public class Map_sub_Activity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_sub);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        String email = firebaseAuth.getCurrentUser().getEmail();
+        int index = email.indexOf("@");
+        final String user_email = email.substring(0,index);
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference user_Ref = rootRef.child("UserProfile");
+        DatabaseReference category_Ref = user_Ref.child(user_email);
+        DatabaseReference like_Ref = category_Ref.child("Like");
+
+        //        appcall db내 앱이름으로 불러옴
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                like_gal_list.clear();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Like_gal temp = new Like_gal();
+                    temp.like_name = ds.getKey().toString();
+                    temp.like_location = ds.getValue().toString();
+                    like_gal_list.add(temp);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        };
+        like_Ref.addListenerForSingleValueEvent(valueEventListener);
 
         auth = FirebaseAuth.getInstance();
         Intent intent = getIntent();
@@ -128,6 +162,8 @@ public class Map_sub_Activity extends BaseActivity {
                     mypage.setImageResource(R.drawable.mypage_on);
                     i = 3;
                     Intent intent = new Intent(Map_sub_Activity.this, MyPage.class);
+                    intent.putExtra("list",like_gal_list);
+
                     finish();
                     startActivity(intent);
                 }

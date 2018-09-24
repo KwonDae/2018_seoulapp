@@ -67,7 +67,6 @@
             android:layout_height="100dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="63dp"
             app:srcCompat="@drawable/mypage_people" />
 
         <TextView
@@ -83,12 +82,10 @@
             android:text=""/>
 
 
-        <ImageView
-            android:id="@+id/mygallery"
+        <ListView
+            android:id="@+id/listview_like"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/ic_launcher" />
-
+            android:layout_height="240dp" />
 
 
     </LinearLayout>
