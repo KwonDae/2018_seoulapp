@@ -3,6 +3,7 @@ package com.example.daewon.a2018_seoulapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.example.daewon.a2018_seoulapp.Activity.BaseActivity;
 import com.example.daewon.a2018_seoulapp.Activity.Detail_Gallery;
 import com.example.daewon.a2018_seoulapp.Activity.MapActivity;
 import com.example.daewon.a2018_seoulapp.Activity.MyPage;
+import com.example.daewon.a2018_seoulapp.Util.Like_gal;
 import com.example.daewon.a2018_seoulapp.Util.OnSwipeTouchListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -35,14 +37,18 @@ import java.util.List;
 
 public class GalleryList extends BaseActivity {
 
-        private RecyclerView recyclerView;
-        private List<ImageDTO> imageDTOs = new ArrayList<>();
-        private List<String> uidLists = new ArrayList<>();
-        private FirebaseDatabase database;
-        private FirebaseAuth auth;
-        private String temp1,temp2,temp3,temp4,temp5;
-        private int count=0;
-        String[] Gallery_locations_list;
+    private RecyclerView recyclerView;
+    private List<ImageDTO> imageDTOs = new ArrayList<>();
+    private List<String> uidLists = new ArrayList<>();
+    private FirebaseDatabase database;
+    private FirebaseAuth auth;
+    private String temp1,temp2,temp3,temp4,temp5;
+    private int count=0;
+    private FirebaseAuth firebaseAuth;
+
+    private ArrayList<Like_gal> like_gal_list = new ArrayList<>();
+
+    String[] Gallery_locations_list;
 
          private ImageButton best5, find_gallery, mypage;
         int i = 1;
@@ -55,6 +61,39 @@ public class GalleryList extends BaseActivity {
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         Gallery_locations_list = new String[]{"강서구", "마포구", "영등포구", "양천구", "구로구", "금천구", "관악구", "동작구", "용산구", "서초구", "강남구", "송파구", "강동구", "광진구", "성동구", "중구", "용산구", "서대문구", "은평구", "종로구", "성북수", "동대문구", "중랑구", "강북구", "노원구", "도봉구"};
+
+
+            firebaseAuth = FirebaseAuth.getInstance();
+            String email = firebaseAuth.getCurrentUser().getEmail();
+            int index = email.indexOf("@");
+            final String user_email = email.substring(0,index);
+
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference user_Ref = rootRef.child("UserProfile");
+            DatabaseReference category_Ref = user_Ref.child(user_email);
+            DatabaseReference like_Ref = category_Ref.child("Like");
+
+            //        appcall db내 앱이름으로 불러옴
+            ValueEventListener valueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    like_gal_list.clear();
+
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Like_gal temp = new Like_gal();
+                        temp.like_name = ds.getKey().toString();
+                        temp.like_location = ds.getValue().toString();
+                        like_gal_list.add(temp);
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            };
+            like_Ref.addListenerForSingleValueEvent(valueEventListener);
 
 
         recyclerView = findViewById(R.id.recycleview);
@@ -146,6 +185,8 @@ public class GalleryList extends BaseActivity {
                     mypage.setImageResource(R.drawable.mypage_on);
                     i = 3;
                     Intent intent = new Intent(GalleryList.this, MyPage.class);
+                    intent.putExtra("list",like_gal_list);
+
                     finish();
                     startActivity(intent);
                 }
