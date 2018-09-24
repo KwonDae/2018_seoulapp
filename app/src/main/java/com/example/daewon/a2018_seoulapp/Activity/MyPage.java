@@ -15,13 +15,21 @@ import android.widget.Toast;
 
 import com.example.daewon.a2018_seoulapp.GalleryList;
 import com.example.daewon.a2018_seoulapp.R;
+import com.example.daewon.a2018_seoulapp.Util.Like_gal;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MyPage extends BaseActivity {
 
@@ -30,6 +38,7 @@ public class MyPage extends BaseActivity {
     private TextView textViewUserEmail;
     private ImageButton Logout;
     private ImageButton Delete;
+    private List<Like_gal> like_gal_list = new ArrayList<>();
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
@@ -48,6 +57,40 @@ public class MyPage extends BaseActivity {
         best5 = findViewById(R.id.best5);
         find_gallery = findViewById(R.id.find_gallery);
         mypage = findViewById(R.id.mypage);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        String email = firebaseAuth.getCurrentUser().getEmail();
+        int index = email.indexOf("@");
+        final String user_email = email.substring(0,index);
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference user_Ref = rootRef.child("UserProfile");
+        DatabaseReference category_Ref = user_Ref.child(user_email);
+        DatabaseReference like_Ref = category_Ref.child("Like");
+
+        //        appcall db내 앱이름으로 불러옴
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                like_gal_list.clear();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Like_gal temp = new Like_gal();
+                    temp.like_name = ds.getKey().toString();
+                    temp.like_location = ds.getValue().toString();
+                    like_gal_list.add(temp);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        };
+        like_Ref.addListenerForSingleValueEvent(valueEventListener);
+
+
+
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
