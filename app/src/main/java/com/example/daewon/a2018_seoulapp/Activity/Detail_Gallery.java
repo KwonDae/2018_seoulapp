@@ -153,11 +153,12 @@ public class Detail_Gallery extends BaseActivity  {
                                 if(ds.child("stars").hasChild(auth.getCurrentUser().getUid())) {
                                     starButton2.setImageResource(R.drawable.star);
                                     star_textView.setText(ds.child("starCount").getValue().toString());
-                                    database.getReference().child("UserProfile").child(user_email).child(Detail_Name).setValue(Detail_Loc);
+                                    database.getReference().child("UserProfile").child(user_email).child("Like").child(Detail_Name).removeValue();
                                 } else {
                                     starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
                                     star_textView.setText(ds.child("starCount").getValue().toString());
-                                    database.getReference().child("UserProfile").child(user_email).child(Detail_Name).removeValue();
+                                    database.getReference().child("UserProfile").child(user_email).child("Like").child(Detail_Name).setValue(Detail_Loc);
+
                                 }
                             }
                         });
