@@ -26,22 +26,21 @@ public class GooglemapActivity extends FragmentActivity
     private Geocoder geocoder;
     private Button button;
     private EditText editText;
-
+    private String location;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_googlemap);
 
         editText = findViewById(R.id.editText);
-        button = findViewById(R.id.button);
 
+        button = findViewById(R.id.button);
+        location = getIntent().getStringExtra("location");
+        editText.setText(location);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-       /* FragmentManager fragmentManager = getFragmentManager();
-        MapFragment mapFragment = (MapFragment)fragmentManager
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);*/
+
     }
 
 
@@ -108,23 +107,13 @@ public class GooglemapActivity extends FragmentActivity
             }
         });
 
+
         ///////////////////
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-       /*String findAddress = "부산시 북구 만덕2동";
-
-         LatLng SEOUL = new LatLng(latitude,longitude);
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(SEOUL);
-        markerOptions.title("서울시청");
-        markerOptions.snippet("한국의 수도");
-        map.addMarker(markerOptions);
-
-        map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
-        map.animateCamera(CameraUpdateFactory.zoomTo(15));*/
+        button.performClick();
     }
 }

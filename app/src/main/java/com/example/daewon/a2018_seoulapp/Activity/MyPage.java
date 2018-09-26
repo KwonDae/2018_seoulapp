@@ -71,7 +71,7 @@ public class MyPage extends BaseActivity {
 
 
         for(int i = 0;i<list.size();i++){
-            adapter.addItem(null, list.get(i).like_name,list.get(i).like_location);
+            adapter.addItem(list.get(i).main_img_src, list.get(i).like_name,list.get(i).like_location);
         }
 
         firebaseAuth = FirebaseAuth.getInstance();

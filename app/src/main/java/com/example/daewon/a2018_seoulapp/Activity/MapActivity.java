@@ -28,6 +28,7 @@ public class MapActivity extends BaseActivity {
     private long mLastClickTime;
     TextView location_text;
     Intent To_detail_list_intent;
+    private FirebaseDatabase database;
     Button To_detail_button;
     private ImageButton best5, find_gallery, mypage;
     int i = 2;
@@ -42,6 +43,7 @@ public class MapActivity extends BaseActivity {
         String email = firebaseAuth.getCurrentUser().getEmail();
         int index = email.indexOf("@");
         final String user_email = email.substring(0,index);
+        database = FirebaseDatabase.getInstance();
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference user_Ref = rootRef.child("UserProfile");
@@ -54,10 +56,29 @@ public class MapActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 like_gal_list.clear();
 
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Like_gal temp = new Like_gal();
+                for (final DataSnapshot ds : dataSnapshot.getChildren()) {
+                    final Like_gal temp = new Like_gal();
                     temp.like_name = ds.getKey().toString();
                     temp.like_location = ds.getValue().toString();
+
+                    final String[] temp_img_src = new String[1];
+                    database.getReference().child("Gallerys").child(temp.like_location).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for( DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                if(snapshot.getKey().equals(ds.getKey().toString())){
+                                    temp_img_src[0] = snapshot.child("Main_img").getValue().toString();
+                                    temp.main_img_src = temp_img_src[0];
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                     like_gal_list.add(temp);
 
                 }

@@ -133,6 +133,7 @@ public class Detail_Gallery extends BaseActivity  {
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(Detail_Gallery.this, GooglemapActivity.class);
+                                intent.putExtra("location",Gallery_location.getText().toString());
                                 startActivity(intent);
                             }
                         });

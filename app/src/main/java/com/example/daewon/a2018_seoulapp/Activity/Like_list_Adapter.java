@@ -1,7 +1,6 @@
 package com.example.daewon.a2018_seoulapp.Activity;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,7 @@ public class Like_list_Adapter extends BaseAdapter {
         Like_gal listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        //Glide.with(this).load(listViewItem.main_img_src).into(iconImageView);
+        Glide.with(context).load(listViewItem.main_img_src).into(iconImageView);
         //iconImageView.setImageDrawable(listViewItem.main_img_src);
         titleTextView.setText(listViewItem.like_name);
         descTextView.setText(listViewItem.like_location);
