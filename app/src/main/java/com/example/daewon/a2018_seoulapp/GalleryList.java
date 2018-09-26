@@ -3,7 +3,6 @@ package com.example.daewon.a2018_seoulapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -79,10 +78,28 @@ public class GalleryList extends BaseActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     like_gal_list.clear();
 
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        Like_gal temp = new Like_gal();
+                    for (final DataSnapshot ds : dataSnapshot.getChildren()) {
+                        final Like_gal temp = new Like_gal();
                         temp.like_name = ds.getKey().toString();
                         temp.like_location = ds.getValue().toString();
+                        final String[] temp_img_src = new String[1];
+                        database.getReference().child("Gallerys").child(temp.like_location).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for( DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    if(snapshot.getKey().equals(ds.getKey().toString())){
+                                        temp_img_src[0] = snapshot.child("Main_img").getValue().toString();
+                                        temp.main_img_src = temp_img_src[0];
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
                         like_gal_list.add(temp);
 
                     }
