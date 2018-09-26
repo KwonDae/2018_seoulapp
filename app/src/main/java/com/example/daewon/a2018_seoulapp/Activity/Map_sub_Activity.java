@@ -182,6 +182,11 @@ public class Map_sub_Activity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position){
+
+            String email = firebaseAuth.getCurrentUser().getEmail();
+            int index = email.indexOf("@");
+            final String user_email = email.substring(0,index);
+
             ((CustomViewHolder)holder).textView.setText(imageDTOs.get(position).Gallery_name);
             ((CustomViewHolder)holder).textView2.setText(imageDTOs.get(position).Gallery_location_from_list);
             ((CustomViewHolder)holder).star_textView.setText(Integer.toString(imageDTOs.get(position).starCount));
@@ -196,9 +201,11 @@ public class Map_sub_Activity extends BaseActivity {
             if (imageDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
                 temp = position;
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.star);
+                database.getReference().child("UserProfile").child(user_email).child("Like").child(imageDTOs.get(position).Gallery_name).setValue(imageDTOs.get(position).Gallery_location_from_list);
             } else {
                 temp = position;
                 ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_border_black_24);
+                database.getReference().child("UserProfile").child(user_email).child("Like").child(imageDTOs.get(position).Gallery_name).removeValue();
             }
         }
 
