@@ -46,6 +46,7 @@ public class Detail_Gallery extends BaseActivity  {
     TextView Gallery_time;
     TextView Gallery_fee;
     TextView star_textView;
+    ImageView map_marker_img;
     private String Detail_Loc;
     private String Detail_Name;
     private ImageView imageView1;
@@ -89,6 +90,7 @@ public class Detail_Gallery extends BaseActivity  {
         imageView4 = (ImageView)findViewById(R.id.imageView4);
         imageView5 = (ImageView)findViewById(R.id.imageView5);
         imageView6 = (ImageView)findViewById(R.id.imageView6);
+        map_marker_img =(ImageView)findViewById(R.id.map_marker_image);
         comments = (EditText)findViewById(R.id.Comments);
         Gallery_name = (TextView)findViewById(R.id.Gallery_name);
         Gallery_explain= (TextView)findViewById(R.id.Gallery_explain);
@@ -129,7 +131,7 @@ public class Detail_Gallery extends BaseActivity  {
                         Gallery_time.setText(ds.child("Gallery_time").getValue().toString());
                         Gallery_fee.setText(ds.child("Gallery_fee").getValue().toString());
 
-                        Gallery_location.setOnClickListener(new View.OnClickListener() {
+                        map_marker_img.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(Detail_Gallery.this, GooglemapActivity.class);
