@@ -143,7 +143,7 @@ public class Detail_Gallery extends BaseActivity  {
                             starButton2.setImageResource(R.drawable.star);
                             star_textView.setText(ds.child("starCount").getValue().toString());
                         } else {
-                            starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
+                            starButton2.setImageResource(R.drawable.offstar);
                             star_textView.setText(ds.child("starCount").getValue().toString());
                         }
 
@@ -158,7 +158,7 @@ public class Detail_Gallery extends BaseActivity  {
                                     star_textView.setText(ds.child("starCount").getValue().toString());
                                     database.getReference().child("UserProfile").child(user_email).child("Like").child(Detail_Name).removeValue();
                                 } else {
-                                    starButton2.setImageResource(R.drawable.baseline_favorite_border_black_24);
+                                    starButton2.setImageResource(R.drawable.offstar);
                                     star_textView.setText(ds.child("starCount").getValue().toString());
                                     database.getReference().child("UserProfile").child(user_email).child("Like").child(Detail_Name).setValue(Detail_Loc);
 
