@@ -219,11 +219,11 @@ public class Map_sub_Activity extends BaseActivity {
 
             if (imageDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
                 temp = position;
-                ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.star);
+                ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.best_star);
                 database.getReference().child("UserProfile").child(user_email).child("Like").child(imageDTOs.get(position).Gallery_name).setValue(imageDTOs.get(position).Gallery_location_from_list);
             } else {
                 temp = position;
-                ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.baseline_favorite_border_black_24);
+                ((CustomViewHolder)holder).starButton.setImageResource(R.drawable.best_offstar);
                 database.getReference().child("UserProfile").child(user_email).child("Like").child(imageDTOs.get(position).Gallery_name).removeValue();
             }
         }
